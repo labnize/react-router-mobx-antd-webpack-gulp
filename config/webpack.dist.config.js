@@ -24,14 +24,16 @@ if (pkg.theme && typeof(pkg.theme) === 'string') {
 }
 
 var webpackConfig = {
-  entry: {},
+  entry: {
+    common: ['react', 'react-dom', 'jquery', 'babel-polyfill']
+  },
   output: {
     path: filePath.build,
-    filename: '[name].js',
-    publicPath: filePath.publicPath
+    filename: '[name].[hash].js',
+    publicPath: '/build/'
   },
-  cache: true,
-  devtool: 'inline-source-map',
+  cache: false,
+  devtool: false,
   resolve: {
     extensions: ['', '.js', '.jsx'],
     alias: {
@@ -39,9 +41,6 @@ var webpackConfig = {
     }
   },
   module: {
-    noParse: [
-      path.join(__dirname, '../node_modules/jquery/dist/jquery.min.js')
-    ],
     loaders: [
       {
         test: /.jsx?$/,
@@ -84,8 +83,33 @@ var webpackConfig = {
     return [precss, autoprefixer];
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
+    new webpack.optimize.DedupePlugin(), //JS库有自己的依赖树，并且这些库可能有交叉的依赖，DedupePlugin可以找出他们并删除重复的依赖
+    new webpack.optimize.OccurenceOrderPlugin(),//为组件分配ID，通过这个插件webpack可以分析和优先考虑使用最多的模块，并为它们分配最小的ID
+    new webpack.optimize.AggressiveMergingPlugin(),
+    // definePlugin 接收字符串插入到代码当中, 所以你需要的话可以写上 JS 的字符串
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production')
+      }
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: "common",
+      filename: "common.[hash].js",
+      chunks: defaultSettings.chunks
+    }),
     new ExtractTextPlugin('[name].css'),
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: false,
+      compress: {
+        warnings: false
+      },
+      mangle: {
+        except: ['$super', '$', 'exports', 'require']  //以上变量‘$super’, ‘$’, ‘exports’ or ‘require’，不会被混淆
+      },
+      output: {
+        comments: false
+      }
+    }),
     new webpack.NoErrorsPlugin(),
     new webpack.ProvidePlugin({
       $: 'jquery',
@@ -106,8 +130,12 @@ function injectHtmlWebpack() {
     new HtmlWebpackPlugin({
       filename: defaultSettings.pagesToPath().fln,
       template: defaultSettings.pagesToPath().templates,
-      chunks: [defaultSettings.pagesToPath().name],
-      inject: true
+      chunks: ['common', defaultSettings.pagesToPath().name],
+      inject: true,
+      minify: {
+        removeComments: true,
+        collapseWhitespace: false
+      }
     })
   );
 }
