@@ -25,7 +25,7 @@ if (pkg.theme && typeof(pkg.theme) === 'string') {
 
 var webpackConfig = {
   entry: {
-    common: ['react', 'react-dom', 'jquery', 'babel-polyfill']
+    common: ['react', 'react-dom', 'jquery']
   },
   output: {
     path: filePath.build,

@@ -5,7 +5,7 @@ var filePath = {
   srcPath: path.join(__dirname, '../src'),
   tplPath: path.join(__dirname, '../src'),
   build: path.join(__dirname, '../build')
-}
+};
 
 var pages = {
   name: 'index.html',
