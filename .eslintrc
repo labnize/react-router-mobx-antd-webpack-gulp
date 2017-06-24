@@ -16,6 +16,8 @@
     "no-undef": [1],
     "new-cap": 1,
     "no-param-reassign": 2,
-    "import/no-extraneous-dependencies": 0
+    "import/no-extraneous-dependencies": 0,
+    "import/no-unresolved": 0,
+    "import/extensions": 0
   }
 }

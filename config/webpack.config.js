@@ -35,6 +35,9 @@ var webpackConfig = {
   resolve: {
     extensions: ['', '.js', '.jsx'],
     alias: {
+      'components': path.join(__dirname, '../src/components'),
+      'pages': path.join(__dirname, '../src/pages'),
+      'data': path.join(__dirname, '../src/testdata'),
       'jquery': path.join(__dirname, '../node_modules/jquery/dist/jquery.min.js')
     }
   },

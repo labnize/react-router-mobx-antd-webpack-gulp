@@ -1,0 +1,42 @@
+{
+  "list": [
+    {
+      "key": "item1",
+      "name": "item1",
+      "sub": [
+        {
+          "key": "item1List1",
+          "name": "item1List1",
+          "icon": "user",
+          "sub": [
+            {
+              "key": "item1SubList1",
+              "name": "item1SubList1"
+            },
+            {
+              "key": "item1SubList2",
+              "name": "item1SubList2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "item2",
+      "name": "item2",
+      "sub": [
+        {
+          "key": "item2List1",
+          "name": "item2List1",
+          "icon": "user",
+          "sub": [
+            {
+              "key": "item2SubList1",
+              "name": "item2SubList1"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

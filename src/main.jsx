@@ -1,31 +1,32 @@
-// import React from 'react';
-// import ReactDOM from 'react-dom';
-// import Layout from 'components/layout/layouttest';
-
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { DatePicker, message } from 'antd';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+
+import item1List1 from 'pages/item1/sublist1';
+import item1List2 from 'pages/item1/sublist2';
+import item2List1 from 'pages/item2/sublist1';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      date: ''
-    };
-  }
-  handleChange(date) {
-    message.info(`您选择的日期是: ${date.toString()}`);
-    this.setState({ date });
-  }
   render() {
     return (
-      <div style={{ width: 400, margin: '100px auto' }}>
-        <DatePicker onChange={value => this.handleChange(value)} />
-        <div style={{ marginTop: 20 }}>当前日期：{this.state.date.toString()}</div>
+      <div>
+        {this.props.children}
       </div>
     );
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+const routers = (
+  <Router history={browserHistory}>
+    <Route exact path="/" component={App}>
+      <IndexRoute component={item1List1} />
+      <Route exact path="item1" component={item1List1} />
+      <Route exact path="item1/item1SubList1" component={item1List1} />
+      <Route exact path="item1/item1SubList2" component={item1List2} />
+      <Route exact path="item2" component={item2List1} />
+      <Route exact path="item2/item2SubList1" component={item2List1} />
+    </Route>
+  </Router>
+);
 
+ReactDOM.render(routers, document.getElementById('app'));
