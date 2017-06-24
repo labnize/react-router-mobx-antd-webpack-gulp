@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 import item1List1 from 'pages/item1/sublist1';
@@ -15,6 +16,10 @@ class App extends React.Component {
     );
   }
 }
+
+App.propTypes = {
+  children: PropTypes.element.isRequired
+};
 
 const routers = (
   <Router history={browserHistory}>
