@@ -25,7 +25,7 @@ if (pkg.theme && typeof(pkg.theme) === 'string') {
 
 var webpackConfig = {
   entry: {
-    common: ['react', 'react-dom', 'jquery']
+    common: ['react', 'react-dom','react-router', 'jquery']
   },
   output: {
     path: filePath.build,
