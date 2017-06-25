@@ -68,6 +68,7 @@ class PageComponent extends Component {
 
   handleProfileMenuClick({ item, key, selectedKeys }) {
     if (key === 'exit') {
+      // Util.deleteToken();
       browserHistory.push('');
       return;
     }
@@ -115,6 +116,11 @@ class PageComponent extends Component {
           </Breadcrumb>
           <Layout className='layout-content-layout' >
             <Sider width={200} style={{ background: '#fff' }}
+                   breakpoint="lg"
+                   collapsedWidth="0"
+                   onCollapse={(collapsed, type) => {
+                     console.log(collapsed, type);
+                   }}
             >
               <Menu
                 mode="inline"

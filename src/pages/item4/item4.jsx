@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import Layout from 'components/layout/layout';
+import Layout from 'components/layout2/layout2';
 
 class PageComponent extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
   }
 
   render() {
     return (
-      <Layout activeTab={1} name="item1SubList2">
-        <div>item1SubList2</div>
+      <Layout name="item4">
+        <div>item4</div>
       </Layout>
     );
   }

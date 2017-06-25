@@ -31,6 +31,7 @@
     "eslint-plugin-jsx-a11y": "^5.0.3",
     "eslint-plugin-react": "^7.1.0",
     "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.11.2",
     "gulp": "^3.9.1",
     "gulp-webpack": "^1.5.0",
     "html-webpack-plugin": "^2.19.0",
@@ -51,10 +52,6 @@
     "webpack-module-hot-accept": "^1.0.5"
   },
   "theme": {
-    "primary-color": "#95b645",
-    "link-color": "#3366cc",
-    "table-header-bg": "#9d9fa4",
-    "layout-header-background": "#95b645",
     "font-size-base": "14px",
     "@btn-font-size-lg": "14px"
   }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Layout from 'components/layout/layout';
+import Layout from 'components/layout2/layout2';
 
 class PageComponent extends Component {
   constructor(props) {
@@ -8,8 +8,8 @@ class PageComponent extends Component {
 
   render() {
     return (
-      <Layout activeTab={1} name="item1SubList1">
-        <div>item1SubList1</div>
+      <Layout name="item1">
+        <div>item1</div>
       </Layout>
     );
   }
