@@ -28,13 +28,11 @@ gulp.task('default', ['dev']);
 
 gulp.task('clean', function () {
   console.log("build folder has been cleaned successfully");
-  // return del(['build/**/*']);
-  return del(['docs/**/*']);
+  return del(['build/**/*']);
 });
 
 gulp.task('build', ['clean'], function () {
   return gulp.src(filePath.srcPath)
     .pipe(gulpWebpack(webpackDistConfig))
-    .pipe(gulp.dest('docs/'));
-    // .pipe(gulp.dest('build/'));
+    .pipe(gulp.dest('build/'));
 });
