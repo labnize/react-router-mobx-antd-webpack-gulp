@@ -30,7 +30,7 @@ var webpackConfig = {
   output: {
     path: filePath.build,
     filename: '[name].[hash].js',
-    publicPath: '/'
+    publicPath: './'
   },
   cache: false,
   devtool: false,
