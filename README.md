@@ -1,3 +1,11 @@
+# Installation
+
+```
+git clone https://github.com/labnize/react-router-antd-webpack-gulp.git
+cd react-router-antd-webpack-gulp
+npm install
+```
+
 # How to build files?
 
 Just run "gulp build" in this root folder
