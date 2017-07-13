@@ -13,11 +13,11 @@ class PageComponent extends Component {
   }
 
   componentDidMount() {
-    let layout = $('.content-layout');
-    let height = $(window).height() - 157 + 'px';
+    const layout = $('.content-layout');
+    const height = `${$(window).height() - 93}px`;
     layout.css('height', height);
-    $(window).resize(function () {
-      let height = $(window).height() - 157 + 'px';
+    $(window).resize(() => {
+      const height = `${$(window).height() - 93}px`;
       layout.css('height', height);
     });
   }
@@ -26,6 +26,7 @@ class PageComponent extends Component {
     console.log(key);
     browserHistory.push(`/${key}`);
   }
+
   render() {
     const { children, name } = this.props;
     // const firstKey = menuList.list[0].key;
@@ -38,14 +39,12 @@ class PageComponent extends Component {
         >
           <div className="logo" />
           <Menu theme="dark" mode="inline" defaultSelectedKeys={[name]} onSelect={this.handleMenuClick}>
-            {menuList ? menuList.list.map((item) => {
-              return (
-                <Menu.Item key={item.key}>
-                  <Icon type="user" />
-                  <span className="nav-text">{item.name}</span>
-                </Menu.Item>
-              );
-            }) : ''}
+            {menuList ? menuList.list.map(item => (
+              <Menu.Item key={item.key}>
+                <Icon type="user" />
+                <span className="nav-text">{item.name}</span>
+              </Menu.Item>
+              )) : ''}
           </Menu>
         </Sider>
         <Layout>
@@ -65,7 +64,8 @@ class PageComponent extends Component {
 }
 
 PageComponent.propTypes = {
-  children: PropTypes.element.isRequired
+  children: PropTypes.element.isRequired,
+  name: PropTypes.string.isRequired
 };
 
 export default PageComponent;
