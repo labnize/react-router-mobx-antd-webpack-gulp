@@ -76,7 +76,7 @@ class PageComponent extends Component {
           width={340}
           onOk={() => this.setModal2Visible(false)}
           onCancel={() => this.setModal2Visible(false)}
-          className='modal-header'
+          className="modal-header"
         >
           {/*<Icon type="exclamation-circle-o" />*/}
           {/*{option.message}*/}

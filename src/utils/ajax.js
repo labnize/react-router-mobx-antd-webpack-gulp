@@ -1,9 +1,7 @@
 import { modal } from 'components/modal/modal';
 
-const MockData = require('util/mock');
-
 export default class AJAX {
-  // static mockData = require('util/mock');
+  static mockData = require('util/mock');
   // static config = require('util/config.json');
   // static currentENV = AJAX.config.current;
 
@@ -32,7 +30,7 @@ export default class AJAX {
         if (loadingFlag) {
           modal.closeModel();
         }
-        const mockData = MockData[url];
+        const mockData = AJAX.mockData[url];
         console.log('mockData', mockData);
         if (mockData.code === 0) {
           successFn(mockData);

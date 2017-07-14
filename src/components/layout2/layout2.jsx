@@ -2,37 +2,17 @@ import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import { Layout, Menu, Icon } from 'antd';
-// import menuList from 'data/menulist2.json';
-import Ajax from 'util/ajax';
+import MenuStore from 'store/menustore';
+import { observer } from 'mobx-react';
 import './layout2.less';
 
 const { Header, Content, Footer, Sider } = Layout;
-const menulistUrl = 'claa/menulist';
+const menuStore = new MenuStore();
 
+@observer
 class PageComponent extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      menuList: ''
-    };
-  }
-
-  componentWillMount() {
-    const that = this;
-    const param = {
-      loadingFlag: true,
-      url: menulistUrl,
-      method: 'GET',
-      data: {},
-      successFn(data) {
-        that.setState({
-          menuList: data
-        });
-      }
-    };
-    console.log(param);
-    Ajax.fetch(param);
   }
 
   componentDidMount() {
@@ -43,6 +23,7 @@ class PageComponent extends Component {
       const height = `${$(window).height() - 93}px`;
       layout.css('height', height);
     });
+    menuStore.fetchData();
   }
 
   handleMenuClick({ item, key, selectedKeys }) {
@@ -52,7 +33,8 @@ class PageComponent extends Component {
 
   render() {
     const { children, name } = this.props;
-    const { menuList } = this.state;
+    let menuList = menuStore.list;
+    // const { menuList } = this.state;
     // const firstKey = menuList.list[0].key;
     return (
       <Layout className="layout" >
@@ -65,7 +47,7 @@ class PageComponent extends Component {
         >
           <div className="logo" />
           <Menu theme="dark" mode="inline" defaultSelectedKeys={[name]} onSelect={this.handleMenuClick} >
-            {menuList ? menuList.list.map(item => (
+            {menuList ? menuList.map(item => (
               <Menu.Item key={item.key} >
                 <Icon type="user" />
                 <span className="nav-text" >{item.name}</span>

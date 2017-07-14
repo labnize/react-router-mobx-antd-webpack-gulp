@@ -39,6 +39,7 @@ var webpackConfig = {
       'pages': path.join(__dirname, '../src/pages'),
       'data': path.join(__dirname, '../src/testdata'),
       'util': path.join(__dirname, '../src/utils'),
+      'store': path.join(__dirname, '../src/store'),
       'jquery': path.join(__dirname, '../node_modules/jquery/dist/jquery.min.js')
     }
   },
