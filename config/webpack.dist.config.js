@@ -117,7 +117,11 @@ var webpackConfig = {
       }
     }),
     new webpack.NoErrorsPlugin(),
-    new ProgressBarPlugin(),
+    new ProgressBarPlugin({
+      format: '  build [:bar] :percent (:elapsed seconds)',
+      clear: false,
+      width: 60
+    }),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
