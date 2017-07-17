@@ -1,22 +1,28 @@
 import { modal } from 'components/modal/modal';
+import 'util/mockdata';
 
 export default class AJAX {
-  static mockData = require('util/mock');
-  // static config = require('util/config.json');
-  // static currentENV = AJAX.config.current;
+  static localData = require('util/localdata');
+  static config = require('util/config.json');
 
-  static needMock() {
+  static isDebug() {
     return true;
   }
 
+  static getEnvPrefix() {
+    return AJAX.config[AJAX.config.current];
+  }
+
   static fetch(fetchObj) {
-    let {
+    const {
       loadingFlag,
       method,
-      url,
-      data = {},
       successFn,
       errorFn
+    } = fetchObj;
+    let {
+      url,
+      data = {}
     } = fetchObj;
 
     if (loadingFlag) {
@@ -25,23 +31,25 @@ export default class AJAX {
       });
     }
 
-    if (AJAX.needMock()) {
+    if (AJAX.isDebug()) {
       setTimeout(() => {
         if (loadingFlag) {
           modal.closeModel();
         }
-        const mockData = AJAX.mockData[url];
-        console.log('mockData', mockData);
-        if (mockData.code === 0) {
-          successFn(mockData);
+        const localData = AJAX.localData[url];
+        // console.log('localData', localData);
+        if (localData.code === 0) {
+          successFn(localData);
         } else if (errorFn) {
-          errorFn(mockData);
+          errorFn(localData);
         } else {
-            // TODO ajax错误统一处理
+          AJAX.modalError(localData);// TODO ajax错误统一处理
         }
       }, 500);
       return;
     }
+
+    url = AJAX.getEnvPrefix() + url;
 
     if (method.toLowerCase() === 'get') {
       data = null;
@@ -49,7 +57,7 @@ export default class AJAX {
       data = JSON.stringify(data);
     }
 
-    return $.ajax({
+    $.ajax({
       method,
       url,
       data: AJAX.isExisty(data) ? data : {},
@@ -64,15 +72,29 @@ export default class AJAX {
       },
       crossDomain: true,
       success(result) {
-
+        if (loadingFlag) {
+          modal.closeModel();
+        }
+        successFn(result);
       },
       error(...args) {
-
+        if (errorFn) {
+          errorFn(args);
+        } else {
+          AJAX.modalError(args);
+        }
       }
     });
   }
 
   static isExisty(obj) {
-    return obj != null;
+    return obj !== null;
+  }
+
+  static modalError(data) {
+    return modal.showModel({
+      type: '',
+      message: data.message
+    });
   }
 }

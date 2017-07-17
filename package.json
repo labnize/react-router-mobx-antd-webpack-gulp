@@ -44,6 +44,7 @@
     "less-loader": "^2.2.3",
     "mobx": "^3.2.1",
     "mobx-react": "^4.2.2",
+    "mockjs": "^1.0.1-beta3",
     "postcss-loader": "^0.13.0",
     "precss": "^1.4.0",
     "progress-bar-webpack-plugin": "^1.10.0",

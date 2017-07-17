@@ -17,10 +17,10 @@ class PageComponent extends Component {
 
   componentDidMount() {
     const layout = $('.content-layout');
-    const height = `${$(window).height() - 93}px`;
+    let height = `${$(window).height() - 93}px`;
     layout.css('height', height);
     $(window).resize(() => {
-      const height = `${$(window).height() - 93}px`;
+      height = `${$(window).height() - 93}px`;
       layout.css('height', height);
     });
     menuStore.fetchData();
@@ -33,7 +33,7 @@ class PageComponent extends Component {
 
   render() {
     const { children, name } = this.props;
-    let menuList = menuStore.list;
+    const menuList = menuStore.list;
     // const { menuList } = this.state;
     // const firstKey = menuList.list[0].key;
     return (

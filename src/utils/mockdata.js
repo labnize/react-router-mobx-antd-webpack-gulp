@@ -4,7 +4,7 @@
  */
 
 const mock = {
-  'claa/menulist': require('data/menulist2.json')
+  'claa/menulist': require('mockData/menulist.js')
 };
 
 module.exports = mock;
