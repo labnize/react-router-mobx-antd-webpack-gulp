@@ -6,6 +6,7 @@ var defaultSettings = require('./defaults');
 var filePath = defaultSettings.filePath;
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var ProgressBarPlugin = require('progress-bar-webpack-plugin');
 var fs = require('fs');
 
 const pkgPath = path.join(__dirname, '../package.json');
@@ -40,6 +41,8 @@ var webpackConfig = {
       'components': path.join(__dirname, '../src/components'),
       'pages': path.join(__dirname, '../src/pages'),
       'data': path.join(__dirname, '../src/testdata'),
+      'util': path.join(__dirname, '../src/utils'),
+      'store': path.join(__dirname, '../src/store'),
       'jquery': path.join(__dirname, '../node_modules/jquery/dist/jquery.min.js')
     }
   },
@@ -114,6 +117,7 @@ var webpackConfig = {
       }
     }),
     new webpack.NoErrorsPlugin(),
+    new ProgressBarPlugin(),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',

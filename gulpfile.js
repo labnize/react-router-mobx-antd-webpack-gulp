@@ -16,7 +16,8 @@ gulp.task('dev', function () {
     historyApiFallback: true,
     hot: true,
     noInfo: false,
-    publicPath: filePath.publicPath
+    publicPath: filePath.publicPath,
+    stats:{colors:true},
   }).listen(defaultSettings.port, function (err) {
     console.log('http://127.0.0.1:' + defaultSettings.port);
     console.log('Opening your system browser...');
