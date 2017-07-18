@@ -17,10 +17,10 @@ class PageComponent extends Component {
 
   componentDidMount() {
     const layout = $('.content-layout');
-    let height = `${$(window).height() - 93}px`;
+    let height = `${$(window).height() - 157}px`;
     layout.css('height', height);
     $(window).resize(() => {
-      height = `${$(window).height() - 93}px`;
+      height = `${$(window).height() - 157}px`;
       layout.css('height', height);
     });
     menuStore.fetchData();
