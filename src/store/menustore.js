@@ -1,18 +1,16 @@
 import { observable } from 'mobx';
 import Ajax from 'util/ajax';
 
-// const menulistUrl = 'claa/menulist';
+const menulistUrl = 'claa/menulist';
 
 export default class Menustore {
   @observable list = [];
-
-  static menulistUrl = 'claa/menulist';
 
   fetchData() {
     const that = this;
     const param = {
       loadingFlag: true,
-      url: Menustore.menulistUrl,
+      url: menulistUrl,
       method: 'GET',
       data: {},
       successFn(data) {

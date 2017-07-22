@@ -4,25 +4,25 @@
     {
       "key": "1",
       "username": "胡彦斌",
-      "rolename": "admin",
+      "rolename": "管理员",
       "belongOrg": "机构1",
       "belongUser": "机构1"
     },{
       "key": "2",
       "username": "岳云鹏",
-      "rolename": "admin",
+      "rolename": "管理员",
       "belongOrg": "欢乐喜剧人",
       "belongUser": "欢乐喜剧人"
     },{
       "key": "3",
       "username": "郭德纲",
-      "rolename": "test",
+      "rolename": "用户",
       "belongOrg": "欢乐喜剧人",
       "belongUser": "欢乐喜剧人"
     },{
-      "key": "1",
+      "key": "4",
       "username": "刘若英",
-      "rolename": "test",
+      "rolename": "用户",
       "belongOrg": "机构3",
       "belongUser": "机构3"
     }

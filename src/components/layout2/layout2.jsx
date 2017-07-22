@@ -50,23 +50,24 @@ class PageComponent extends Component {
             {menuList ? menuList.map(item => (
               <Menu.Item key={item.key} >
                 <Icon type="user" />
-                <span className="nav-text" >{item.name}</span>
-              </Menu.Item>
-            )) : ''}
-          </Menu>
-        </Sider>
-        <Layout>
+                <span className="nav-text" >{item.name}</span >
+              </Menu.Item >
+              )
+            ) : ''}
+          </Menu >
+        </Sider >
+        <Layout >
           <Header />
           <Content style={{ margin: '24px 16px 0' }} >
             <div className="content-layout" style={{ padding: 24, background: '#fff', minHeight: 360 }} >
               {children}
-            </div>
-          </Content>
+            </div >
+          </Content >
           <Footer style={{ textAlign: 'center' }} >
             July Design ©2016 Created by July
-          </Footer>
-        </Layout>
-      </Layout>
+          </Footer >
+        </Layout >
+      </Layout >
     );
   }
 }

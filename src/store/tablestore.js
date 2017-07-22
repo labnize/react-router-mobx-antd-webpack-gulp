@@ -5,7 +5,6 @@ export default class Tablestore {
   @observable list = [];
 
   fetchData(param) {
-    debugger;
     const that = this;
     const params = {
       successFn(data) {

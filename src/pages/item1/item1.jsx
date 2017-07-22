@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import React, { Component } from 'react';
 import { Table } from 'antd';
 import Tablestore from 'store/tablestore';
@@ -28,14 +29,14 @@ const columns = [{
   title: '操作',
   dataIndex: 'action',
   key: 'action',
-  render: (text, record) => (
+  render: (text) => (
     <span >
-      <a href="#" >Action 一 {record.name}</a >
+      <a href="#" >操作</a >
       <span className="ant-divider" />
-      <a href="#" >Delete</a >
+      <a href="#" >删除</a >
       <span className="ant-divider" />
       <a href="#" className="ant-dropdown-link" >
-        More actions <Icon type="down" />
+        更多
       </a >
     </span >
   )
@@ -44,9 +45,9 @@ const columns = [{
 
 @observer
 class PageComponent extends Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   componentDidMount() {
     const param = {
@@ -58,16 +59,22 @@ class PageComponent extends Component {
     store.fetchData(param);
   }
 
+  dataSourceTransform(data) {
+    const dataSource = [];
+    data.forEach((value) => {
+      dataSource.push(value);
+    });
+    return dataSource;
+  }
+
   render() {
-    const dataSource = store.list;
-    debugger;
+    const dataSource = this.dataSourceTransform(store.list);
     return (
       <Layout name="item1" >
         <div >
           <Table
             columns={columns}
-            rowKey={record => record.registered}
-            dataSource={dataSource ? [] : dataSource}
+            dataSource={dataSource}
           />
         </div >
       </Layout >
