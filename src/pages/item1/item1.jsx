@@ -61,6 +61,10 @@ class PageComponent extends Component {
     this.doQuery();
   }
 
+  onSelectChange = (selectedRowKeys, selectedRows) => {
+    console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+  };
+
   @observable sorter = {
     sorterField: '',
     sorterOrder: ''
@@ -98,10 +102,14 @@ class PageComponent extends Component {
 
   render() {
     const dataSource = this.dataSourceTransform(store.data.list);
+    const rowSelection = {
+      onChange: this.onSelectChange
+    };
     return (
       <Layout name="item1" >
         <div >
           <Table
+            rowSelection={rowSelection}
             columns={columns}
             dataSource={dataSource}
             pagination={store.data.pagination}
