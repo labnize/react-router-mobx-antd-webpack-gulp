@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Table } from 'antd';
 import Tablestore from 'store/tablestore';
 import { observer } from 'mobx-react';
+import { observable } from 'mobx';
 import Layout from 'components/layout2/layout2';
 
 const store = new Tablestore();
@@ -25,6 +26,11 @@ const columns = [{
   title: '归属用户',
   dataIndex: 'belongUser',
   key: 'belongUser'
+}, {
+  title: '创建时间',
+  dataIndex: 'createTime',
+  key: 'createTime',
+  sorter: true
 }, {
   title: '操作',
   dataIndex: 'action',
@@ -55,13 +61,21 @@ class PageComponent extends Component {
     this.doQuery();
   }
 
+  @observable sorter = {
+    sorterField: '',
+    sorterOrder: ''
+  };
+
   doQuery() {
     const param = {
       loadingFlag: true,
       url,
       method: 'GET',
       data: {
-        pagination: store.data.pagination
+        pageSize: store.data.pagination.pageSize,
+        current: store.data.pagination.current,
+        sorterField: this.sorter.sorterField,
+        sorterOrder: this.sorter.sorterOrder
       }
     };
     store.fetchData(param);
@@ -77,6 +91,8 @@ class PageComponent extends Component {
 
   handleTableChange(pagination, filters, sorter) {
     store.changeCurrentPage(pagination.current);
+    this.sorter.sorterField = sorter.field;
+    this.sorter.sorterOrder = sorter.order;
     this.doQuery();
   }
 
