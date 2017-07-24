@@ -29,7 +29,7 @@ const columns = [{
   title: '操作',
   dataIndex: 'action',
   key: 'action',
-  render: (text) => (
+  render: text => (
     <span >
       <a href="#" >操作</a >
       <span className="ant-divider" />
@@ -45,16 +45,24 @@ const columns = [{
 
 @observer
 class PageComponent extends Component {
-  // constructor(props) {
-  //   super(props);
-  // }
+  constructor(props) {
+    super(props);
+
+    this.handleTableChange = this.handleTableChange.bind(this);
+  }
 
   componentDidMount() {
+    this.doQuery();
+  }
+
+  doQuery() {
     const param = {
       loadingFlag: true,
       url,
       method: 'GET',
-      data: {}
+      data: {
+        pagination: store.data.pagination
+      }
     };
     store.fetchData(param);
   }
@@ -67,14 +75,21 @@ class PageComponent extends Component {
     return dataSource;
   }
 
+  handleTableChange(pagination, filters, sorter) {
+    store.changeCurrentPage(pagination.current);
+    this.doQuery();
+  }
+
   render() {
-    const dataSource = this.dataSourceTransform(store.list);
+    const dataSource = this.dataSourceTransform(store.data.list);
     return (
       <Layout name="item1" >
         <div >
           <Table
             columns={columns}
             dataSource={dataSource}
+            pagination={store.data.pagination}
+            onChange={this.handleTableChange}
           />
         </div >
       </Layout >
