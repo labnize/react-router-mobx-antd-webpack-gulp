@@ -85,14 +85,6 @@ class PageComponent extends Component {
     store.fetchData(param);
   }
 
-  dataSourceTransform(data) {
-    const dataSource = [];
-    data.forEach((value) => {
-      dataSource.push(value);
-    });
-    return dataSource;
-  }
-
   handleTableChange(pagination, filters, sorter) {
     store.changeCurrentPage(pagination.current);
     this.sorter.sorterField = sorter.field;
@@ -101,7 +93,7 @@ class PageComponent extends Component {
   }
 
   render() {
-    const dataSource = this.dataSourceTransform(store.data.list);
+    const dataSource = store.data.list.slice();
     const rowSelection = {
       onChange: this.onSelectChange
     };
