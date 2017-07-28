@@ -1,11 +1,13 @@
 /* eslint-disable class-methods-use-this */
 import React, { Component } from 'react';
-import { Table } from 'antd';
+import { Table, Input, Button } from 'antd';
 import Tablestore from 'store/tablestore';
 import { observer } from 'mobx-react';
 import { observable } from 'mobx';
 import Layout from 'components/layout2/layout2';
+import './item1.less';
 
+const Search = Input.Search;
 const store = new Tablestore();
 const url = 'claa/tablelist';
 
@@ -65,6 +67,8 @@ class PageComponent extends Component {
     console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
   };
 
+  title = () => '用户管理';
+
   @observable sorter = {
     sorterField: '',
     sorterOrder: ''
@@ -98,15 +102,27 @@ class PageComponent extends Component {
       onChange: this.onSelectChange
     };
     return (
-      <Layout name="item1" >
-        <div >
-          <Table
-            rowSelection={rowSelection}
-            columns={columns}
-            dataSource={dataSource}
-            pagination={store.data.pagination}
-            onChange={this.handleTableChange}
-          />
+      <Layout name="item1">
+        <div className="item1">
+          <div className="search">
+            <Search
+              placeholder="用户名"
+              style={{ width: 200 }}
+              onSearch={value => console.log(value)}
+            />
+            <span className="apart-line" />
+            <Button type="primary">新建用户</Button>
+          </div>
+          <div className="table">
+            <Table
+              rowSelection={rowSelection}
+              columns={columns}
+              dataSource={dataSource}
+              pagination={store.data.pagination}
+              onChange={this.handleTableChange}
+              title={this.title}
+            />
+          </div>
         </div >
       </Layout >
     );

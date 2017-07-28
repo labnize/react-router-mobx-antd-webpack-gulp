@@ -5,7 +5,7 @@ export default class Tablestore {
   @observable data = {
     list: [],
     pagination: {
-      pageSize: 10,
+      pageSize: 1,
       current: 1,
       total: 10
     }
