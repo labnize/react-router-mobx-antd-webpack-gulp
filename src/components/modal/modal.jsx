@@ -57,7 +57,7 @@ class PageComponent extends Component {
           width={340}
           footer={null}
           onCancel={() => this.setModal2Visible(false)}
-          className='modal-header'
+          className="modal-header"
         >
           <Alert
             className="noti-alert"
