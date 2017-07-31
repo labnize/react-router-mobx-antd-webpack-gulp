@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Layout, Menu, Icon } from 'antd';
 import MenuStore from 'store/menustore';
 import { observer } from 'mobx-react';
+import menus from 'localData/menulist2.json';
 import './layout2.less';
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -23,7 +24,7 @@ class PageComponent extends Component {
       height = `${$(window).height() - 157}px`;
       layout.css('height', height);
     });
-    menuStore.fetchData();
+    // menuStore.fetchData();
   }
 
   handleMenuClick({ item, key, selectedKeys }) {
@@ -33,7 +34,8 @@ class PageComponent extends Component {
 
   render() {
     const { children, name } = this.props;
-    const menuList = menuStore.list;
+    const menuList = menus.list;
+    // const menuList = menuStore.list;  //菜单通过接口获得
     // const { menuList } = this.state;
     // const firstKey = menuList.list[0].key;
     return (

@@ -14,10 +14,14 @@ class PageComponent extends Component {
     };
   }
 
+  setModal2Visible(modal2Visible) {
+    this.setState({ modal2Visible });
+  }
+
   show(option) {
     this.setState({
       modal2Visible: true,
-      option: option
+      option
     });
   }
 
@@ -28,22 +32,19 @@ class PageComponent extends Component {
     });
   }
 
-  setModal2Visible(modal2Visible) {
-    this.setState({ modal2Visible });
-  }
-
   render() {
-    let { modal2Visible, option } = this.state;
+    const { modal2Visible, option } = this.state;
     let content = '';
     if (option.type && option.type === 'loading') {
-      content = (<Modal
+      content = (
+        <Modal
           title=""
           wrapClassName="vertical-center-modal"
           visible={modal2Visible}
           closable={false}
           footer={null}
           width={300}
-          className='modal-header'
+          className="modal-header"
         >
           <Spin tip="加载中..." size="large" />
         </Modal>
@@ -67,7 +68,7 @@ class PageComponent extends Component {
           />
         </Modal>
       );
-    } else {
+    } else if (option.type && option.type === 'error') {
       content = (
         <Modal
           title=""
@@ -78,8 +79,6 @@ class PageComponent extends Component {
           onCancel={() => this.setModal2Visible(false)}
           className="modal-header"
         >
-          {/*<Icon type="exclamation-circle-o" />*/}
-          {/*{option.message}*/}
           <Alert
             className="noti-alert"
             message={option.message}
@@ -87,6 +86,21 @@ class PageComponent extends Component {
             type="error"
             showIcon
           />
+        </Modal>
+      );
+    } else if (option.type && option.type === 'dialog') {
+      const Dialog = option.dialog;
+      content = (
+        <Modal
+          title=""
+          wrapClassName="vertical-center-modal"
+          visible={modal2Visible}
+          width={340}
+          onOk={() => this.setModal2Visible(false)}
+          onCancel={() => this.setModal2Visible(false)}
+          className="modal-header"
+        >
+          <Dialog />
         </Modal>
       );
     }
@@ -99,15 +113,15 @@ class PageComponent extends Component {
   }
 }
 
-let dialogDom = ReactDom.render(<PageComponent />, document.getElementById('dialog'));
-let modal = {};
+const dialogDom = ReactDom.render(<PageComponent />, document.getElementById('dialog'));
+const modal = {};
 
-modal.showModel = function(option) {
+modal.showModel = (option) => {
   dialogDom.show(option);
 };
 
-modal.closeModel = function() {
+modal.closeModel = () => {
   dialogDom.close();
 };
 
-export { modal };
+export default modal;

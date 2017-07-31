@@ -1,4 +1,4 @@
-import { modal } from 'components/modal/modal';
+import modal from 'components/modal/modal';
 import 'util/mockdata';
 
 export default class AJAX {
@@ -93,7 +93,7 @@ export default class AJAX {
 
   static modalError(data) {
     return modal.showModel({
-      type: '',
+      type: 'error',
       message: data.message
     });
   }

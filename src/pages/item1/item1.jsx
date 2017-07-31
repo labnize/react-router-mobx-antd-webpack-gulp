@@ -5,6 +5,8 @@ import Tablestore from 'store/tablestore';
 import { observer } from 'mobx-react';
 import { observable } from 'mobx';
 import Layout from 'components/layout2/layout2';
+import modal from 'components/modal/modal';
+import UserConfig from './userconfig';
 import './item1.less';
 
 const Search = Input.Search;
@@ -39,13 +41,9 @@ const columns = [{
   key: 'action',
   render: text => (
     <span >
-      <a href="#" >操作</a >
+      <a href="#" >编辑</a >
       <span className="ant-divider" />
       <a href="#" >删除</a >
-      <span className="ant-divider" />
-      <a href="#" className="ant-dropdown-link" >
-        更多
-      </a >
     </span >
   )
 }];
@@ -57,6 +55,7 @@ class PageComponent extends Component {
     super(props);
 
     this.handleTableChange = this.handleTableChange.bind(this);
+    this.createUser = this.createUser.bind(this);
   }
 
   componentDidMount() {
@@ -96,6 +95,13 @@ class PageComponent extends Component {
     this.doQuery();
   }
 
+  createUser() {
+    modal.showModel({
+      type: 'dialog',
+      dialog: UserConfig
+    });
+  }
+
   render() {
     const dataSource = store.data.list.slice();
     const rowSelection = {
@@ -111,7 +117,7 @@ class PageComponent extends Component {
               onSearch={value => console.log(value)}
             />
             <span className="apart-line" />
-            <Button type="primary">新建用户</Button>
+            <Button type="primary" onClick={this.createUser}>新建用户</Button>
           </div>
           <div className="table">
             <Table
