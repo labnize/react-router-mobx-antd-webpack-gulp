@@ -92,10 +92,10 @@ class PageComponent extends Component {
       const Dialog = option.dialog;
       content = (
         <Modal
-          title=""
-          wrapClassName="vertical-center-modal"
+          title={option.title}
+          wrapClassName="vertical-center-dialog"
           visible={modal2Visible}
-          width={340}
+          width={440}
           onOk={() => this.setModal2Visible(false)}
           onCancel={() => this.setModal2Visible(false)}
           className="modal-header"

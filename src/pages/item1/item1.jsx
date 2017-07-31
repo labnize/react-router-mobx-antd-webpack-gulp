@@ -98,6 +98,7 @@ class PageComponent extends Component {
   createUser() {
     modal.showModel({
       type: 'dialog',
+      title: '新增用户',
       dialog: UserConfig
     });
   }
@@ -117,7 +118,7 @@ class PageComponent extends Component {
               onSearch={value => console.log(value)}
             />
             <span className="apart-line" />
-            <Button type="primary" onClick={this.createUser}>新建用户</Button>
+            <Button type="primary" onClick={this.createUser}>新增用户</Button>
           </div>
           <div className="table">
             <Table
