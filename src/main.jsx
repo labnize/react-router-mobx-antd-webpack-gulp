@@ -8,14 +8,12 @@ import item2 from 'pages/item2/item2';
 import item3 from 'pages/item3/item3';
 import item4 from 'pages/item4/item4';
 
-class App extends React.Component {
-  render() {
-    return (
-      <div>
-        {this.props.children}
-      </div>
-    );
-  }
+function App(props) {
+  return (
+    <div >
+      {props.children}
+    </div >
+  );
 }
 
 App.propTypes = {
@@ -23,15 +21,15 @@ App.propTypes = {
 };
 
 const routers = (
-  <Router history={browserHistory}>
-    <Route exact path="/" component={App}>
+  <Router history={browserHistory} >
+    <Route exact path="/" component={App} >
       <IndexRoute component={item1} />
       <Route exact path="item1" component={item1} />
       <Route exact path="item2" component={item2} />
       <Route exact path="item3" component={item3} />
       <Route exact path="item4" component={item4} />
-    </Route>
-  </Router>
+    </Route >
+  </Router >
 );
 
 ReactDOM.render(routers, document.getElementById('app'));

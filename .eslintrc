@@ -19,6 +19,7 @@
     "import/no-extraneous-dependencies": 0,
     "import/no-unresolved": 0,
     "import/extensions": 0,
-    "global-require": 0
+    "global-require": 0,
+    "react/forbid-prop-types": [2, { "forbid": ["any"] }]
   }
 }
