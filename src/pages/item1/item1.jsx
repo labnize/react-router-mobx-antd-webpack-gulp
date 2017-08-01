@@ -1,4 +1,3 @@
-/* eslint-disable class-methods-use-this */
 import React, { Component } from 'react';
 import { Table, Input, Button } from 'antd';
 import Tablestore from 'store/tablestore';
