@@ -96,7 +96,7 @@ class PageComponent extends Component {
           wrapClassName="vertical-center-dialog"
           visible={modal2Visible}
           width={440}
-          onOk={() => this.setModal2Visible(false)}
+          footer={null}
           onCancel={() => this.setModal2Visible(false)}
           className="modal-header"
         >

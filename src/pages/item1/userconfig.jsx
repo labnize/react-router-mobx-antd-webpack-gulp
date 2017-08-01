@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Form, Input, Radio } from 'antd';
+import { Form, Input, Radio, Button } from 'antd';
+import './userConfig.less';
 
 const FormItem = Form.Item;
 const { TextArea } = Input;
@@ -20,7 +21,7 @@ class PageComponent extends Component {
     } : null;
     return (
       <div >
-        <Form layout={formLayout} >
+        <Form layout={formLayout} className="userConfig">
           <FormItem
             label="用户类型"
             {...formItemLayout}
@@ -42,6 +43,17 @@ class PageComponent extends Component {
           >
             <TextArea rows={4} />
           </FormItem >
+          <FormItem
+            wrapperCol={{ span: 24 }}
+            className="footer"
+          >
+            <Button type="primary" htmlType="submit">
+              确定
+            </Button>
+            <Button style={{ marginLeft: 8 }}>
+              取消
+            </Button>
+          </FormItem>
         </Form >
       </div >
     );
