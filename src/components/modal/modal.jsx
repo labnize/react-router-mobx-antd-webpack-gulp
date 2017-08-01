@@ -88,22 +88,23 @@ class PageComponent extends Component {
           />
         </Modal>
       );
-    } else if (option.type && option.type === 'dialog') {
-      const Dialog = option.dialog;
-      content = (
-        <Modal
-          title={option.title}
-          wrapClassName="vertical-center-dialog"
-          visible={modal2Visible}
-          width={440}
-          footer={null}
-          onCancel={() => this.setModal2Visible(false)}
-          className="modal-header"
-        >
-          <Dialog />
-        </Modal>
-      );
     }
+    // else if (option.type && option.type === 'dialog') {
+    //   const Dialog = option.dialog;
+    //   content = (
+    //     <Modal
+    //       title={option.title}
+    //       wrapClassName="vertical-center-dialog"
+    //       visible={modal2Visible}
+    //       width={440}
+    //       footer={null}
+    //       onCancel={() => this.setModal2Visible(false)}
+    //       className="modal-header"
+    //     >
+    //       <Dialog />
+    //     </Modal>
+    //   );
+    // }
 
     return (
       <div>

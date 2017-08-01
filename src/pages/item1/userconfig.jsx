@@ -1,22 +1,21 @@
 import React, { Component } from 'react';
 import { Form, Input, Radio, Button } from 'antd';
-import modal from 'components/modal/modal';
+// import modal from 'components/modal/modal';
 import Ajax from 'util/ajax';
+import PropTypes from 'prop-types';
 import './userConfig.less';
 
 const FormItem = Form.Item;
 const { TextArea } = Input;
-const url = 'claa/createuser';
+const url = 'claa/tablelist';
 
 class PageComponent extends Component {
-  static cancelClickHandler() {
-    modal.closeModel();
-  }
   constructor() {
     super();
     this.state = {
       formLayout: 'horizontal'
     };
+    this.cancelClickHandler = this.cancelClickHandler.bind(this);
   }
 
   handleSubmit = (e) => {
@@ -24,6 +23,7 @@ class PageComponent extends Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
+        const that = this;
         const param = {
           loadingFlag: true,
           url,
@@ -34,14 +34,18 @@ class PageComponent extends Component {
             userDesc: values.userDesc
           },
           successFn() {
-
+            that.props.onTrigger('visible', false);
+            that.props.onTrigger('doQuery');
           }
         };
         Ajax.fetch(param);
       }
     });
-    PageComponent.cancelClickHandler();
   };
+
+  cancelClickHandler() {
+    this.props.onTrigger('visible', false);
+  }
 
   render() {
     const { formLayout } = this.state;
@@ -93,7 +97,7 @@ class PageComponent extends Component {
             <Button type="primary" htmlType="submit" >
               确定
             </Button >
-            <Button style={{ marginLeft: 8 }} onClick={PageComponent.cancelClickHandler} >
+            <Button style={{ marginLeft: 8 }} onClick={this.cancelClickHandler} >
               取消
             </Button >
           </FormItem >
@@ -102,6 +106,10 @@ class PageComponent extends Component {
     );
   }
 }
+
+PageComponent.propTypes = {
+  onTrigger: PropTypes.func.isRequired
+};
 
 const WrappedNormalLoginForm = Form.create()(PageComponent);
 export default WrappedNormalLoginForm;

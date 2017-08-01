@@ -4,7 +4,8 @@ import Tablestore from 'store/tablestore';
 import { observer } from 'mobx-react';
 import { observable } from 'mobx';
 import Layout from 'components/layout2/layout2';
-import modal from 'components/modal/modal';
+// import modal from 'components/modal/modal';
+import ModalDialog from 'components/modal/modaldialog';
 import UserConfig from './userconfig';
 import './item1.less';
 
@@ -55,6 +56,7 @@ class PageComponent extends Component {
 
     this.handleTableChange = this.handleTableChange.bind(this);
     this.createUser = this.createUser.bind(this);
+    this.eventListener = this.eventListener.bind(this);
   }
 
   componentDidMount() {
@@ -67,9 +69,10 @@ class PageComponent extends Component {
 
   title = () => '用户管理';
 
-  @observable sorter = {
+  @observable obserdata = {
     sorterField: '',
-    sorterOrder: ''
+    sorterOrder: '',
+    visible: false
   };
 
   doQuery() {
@@ -80,8 +83,8 @@ class PageComponent extends Component {
       data: {
         pageSize: store.data.pagination.pageSize,
         current: store.data.pagination.current,
-        sorterField: this.sorter.sorterField,
-        sorterOrder: this.sorter.sorterOrder
+        sorterField: this.obserdata.sorterField,
+        sorterOrder: this.obserdata.sorterOrder
       }
     };
     store.fetchData(param);
@@ -89,37 +92,52 @@ class PageComponent extends Component {
 
   handleTableChange(pagination, filters, sorter) {
     store.changeCurrentPage(pagination.current);
-    this.sorter.sorterField = sorter.field;
-    this.sorter.sorterOrder = sorter.order;
+    this.obserdata.sorterField = sorter.field;
+    this.obserdata.sorterOrder = sorter.order;
     this.doQuery();
   }
 
   createUser() {
-    modal.showModel({
-      type: 'dialog',
-      title: '新增用户',
-      dialog: UserConfig
-    });
+    // modal.showModel({
+    //   type: 'dialog',
+    //   title: '新增用户',
+    //   dialog: UserConfig
+    // });
+    this.obserdata.visible = true;
+  }
+
+  eventListener(type, param) {
+    if (type === 'visible') {
+      this.obserdata.visible = param;
+    }
+    if (type === 'doQuery') {
+      this.doQuery();
+    }
   }
 
   render() {
+    const option = {
+      title: '新增用户',
+      visible: this.obserdata.visible,
+      dialog: UserConfig
+    };
     const dataSource = store.data.list.slice();
     const rowSelection = {
       onChange: this.onSelectChange
     };
     return (
-      <Layout name="item1">
-        <div className="item1">
-          <div className="search">
+      <Layout name="item1" >
+        <div className="item1" >
+          <div className="search" >
             <Search
               placeholder="用户名"
               style={{ width: 200 }}
               onSearch={value => console.log(value)}
             />
             <span className="apart-line" />
-            <Button type="primary" onClick={this.createUser}>新增用户</Button>
-          </div>
-          <div className="table">
+            <Button type="primary" onClick={this.createUser} >新增用户</Button >
+          </div >
+          <div className="table" >
             <Table
               rowSelection={rowSelection}
               columns={columns}
@@ -128,7 +146,8 @@ class PageComponent extends Component {
               onChange={this.handleTableChange}
               title={this.title}
             />
-          </div>
+          </div >
+          <ModalDialog option={option} onTrigger={this.eventListener} />
         </div >
       </Layout >
     );
