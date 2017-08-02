@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Form, Input, Radio, Button } from 'antd';
-// import modal from 'components/modal/modal';
 import Ajax from 'util/ajax';
 import PropTypes from 'prop-types';
+
 import './userConfig.less';
 
 const FormItem = Form.Item;
@@ -12,12 +12,8 @@ const url = 'claa/tablelist';
 class PageComponent extends Component {
   constructor() {
     super();
-    this.state = {
-      formLayout: 'horizontal'
-    };
     this.cancelClickHandler = this.cancelClickHandler.bind(this);
   }
-
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
@@ -48,7 +44,10 @@ class PageComponent extends Component {
   }
 
   render() {
-    const { formLayout } = this.state;
+    const { param } = this.props;
+    const rolename = param.rolename ? param.rolename : '';
+    const username = param.username ? param.username : '';
+    const desc = param.desc ? param.desc : '';
     const formItemLayout = {
       labelCol: { span: 5 },
       wrapperCol: { span: 16 }
@@ -56,15 +55,15 @@ class PageComponent extends Component {
     const { getFieldDecorator } = this.props.form;
     return (
       <div >
-        <Form onSubmit={this.handleSubmit} layout={formLayout} className="userConfig" >
+        <Form onSubmit={this.handleSubmit} layout="horizontal" className="userConfig" >
           <FormItem
             label="用户类型"
             {...formItemLayout}
           >
-            {getFieldDecorator('rolename', {
+            {getFieldDecorator('rolename', { initialValue: rolename }, {
               rules: [{ required: true, message: '请选择用户类型!' }]
             })(
-              <Radio.Group>
+              <Radio.Group >
                 <Radio.Button value="普通用户" >普通用户</Radio.Button >
                 <Radio.Button value="管理员" >管理员</Radio.Button >
               </Radio.Group >
@@ -74,7 +73,7 @@ class PageComponent extends Component {
             label="用户名"
             {...formItemLayout}
           >
-            {getFieldDecorator('username', {
+            {getFieldDecorator('username', { initialValue: username }, {
               rules: [{ required: true, message: '请输入用户名!' }]
             })(
               <Input placeholder="请填写用户名" />
@@ -84,7 +83,7 @@ class PageComponent extends Component {
             label="用户描述"
             {...formItemLayout}
           >
-            {getFieldDecorator('userDesc', {
+            {getFieldDecorator('userDesc', { initialValue: desc }, {
               rules: [{ required: true, message: '请输入用户描述!' }]
             })(
               <TextArea rows={4} />
@@ -108,7 +107,8 @@ class PageComponent extends Component {
 }
 
 PageComponent.propTypes = {
-  onTrigger: PropTypes.func.isRequired
+  onTrigger: PropTypes.func.isRequired,
+  param: PropTypes.object.isRequired
 };
 
 const WrappedNormalLoginForm = Form.create()(PageComponent);

@@ -30,7 +30,7 @@ class PageComponent extends Component {
           onCancel={() => this.setVisible(false)}
           className="modal-header"
         >
-          <Dialog onTrigger={this.eventListener} />
+          <Dialog onTrigger={this.eventListener} param={option.param} />
         </Modal >
       </div >
     );

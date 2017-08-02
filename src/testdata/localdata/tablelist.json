@@ -5,30 +5,30 @@
       "key": "1",
       "username": "胡彦斌",
       "rolename": "管理员",
-      "belongOrg": "机构1",
-      "belongUser": "机构1",
-      "createTime": "2015-02-20 12:12:05"
+      "createTime": "2015-02-20 12:12:05",
+      "deadTime": "2016-02-20 12:12:05",
+      "desc": "testtest"
     },{
       "key": "2",
       "username": "岳云鹏",
       "rolename": "管理员",
-      "belongOrg": "欢乐喜剧人",
-      "belongUser": "欢乐喜剧人",
-      "createTime": "2015-10-20 12:12:05"
+      "createTime": "2015-02-20 12:12:05",
+      "deadTime": "2016-02-20 12:12:05",
+      "desc": "testtest"
     },{
       "key": "3",
       "username": "郭德纲",
-      "rolename": "用户",
-      "belongOrg": "欢乐喜剧人",
-      "belongUser": "欢乐喜剧人",
-      "createTime": "2015-05-20 12:12:05"
+      "rolename": "管理员",
+      "createTime": "2015-02-20 12:12:05",
+      "deadTime": "2016-02-20 12:12:05",
+      "desc": "testtest"
     },{
       "key": "4",
       "username": "刘若英",
-      "rolename": "用户",
-      "belongOrg": "机构3",
-      "belongUser": "机构3",
-      "createTime": "2015-12-20 12:12:05"
+      "rolename": "普通用户",
+      "createTime": "2015-02-20 12:12:05",
+      "deadTime": "2016-02-20 12:12:05",
+      "desc": "testtest"
     }
   ],
   "total": "4",
