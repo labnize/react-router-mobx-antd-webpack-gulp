@@ -53,6 +53,7 @@ class PageComponent extends Component {
       wrapperCol: { span: 16 }
     };
     const { getFieldDecorator } = this.props.form;
+    debugger;
     return (
       <div >
         <Form onSubmit={this.handleSubmit} layout="horizontal" className="userConfig" >
@@ -108,7 +109,8 @@ class PageComponent extends Component {
 
 PageComponent.propTypes = {
   onTrigger: PropTypes.func.isRequired,
-  param: PropTypes.object.isRequired
+  param: PropTypes.object.isRequired,
+  form: PropTypes.object.isRequired
 };
 
 const WrappedNormalLoginForm = Form.create()(PageComponent);
