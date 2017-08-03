@@ -5,7 +5,7 @@ import { observer } from 'mobx-react';
 import { observable } from 'mobx';
 import Layout from 'components/layout2/layout2';
 import modal from 'components/modal/modal';
-import UserConfig from './userconfig';
+import UserConfig from './userConfig';
 import UserDelete from './userDelete';
 import './item1.less';
 

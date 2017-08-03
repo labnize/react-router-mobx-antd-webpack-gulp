@@ -18,6 +18,7 @@ class PageComponent extends Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
+        debugger;
         console.log('Received values of form: ', values);
         const that = this;
         const param = {
@@ -44,6 +45,7 @@ class PageComponent extends Component {
     const username = param.username ? param.username : '';
     const desc = param.desc ? param.desc : '';
 
+    debugger;
     const formItemLayout = {
       labelCol: { span: 5 },
       wrapperCol: { span: 16 }
