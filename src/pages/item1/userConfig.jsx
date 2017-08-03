@@ -11,9 +11,11 @@ const { TextArea } = Input;
 const url = 'claa/tablelist';
 
 class PageComponent extends Component {
-  static cancelClickHandler() {
-    modal.closeModel();
+  constructor(props) {
+    super(props);
+    this.cancelClickHandler = this.cancelClickHandler.bind(this);
   }
+
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
@@ -38,6 +40,11 @@ class PageComponent extends Component {
       }
     });
   };
+
+  cancelClickHandler() {
+    // modal.closeModel();
+    this.props.onTrigger();
+  }
 
   render() {
     const { param } = this.props;
@@ -97,7 +104,7 @@ class PageComponent extends Component {
             <Button type="primary" htmlType="submit" >
               确定
             </Button >
-            <Button style={{ marginLeft: 8 }} onClick={PageComponent.cancelClickHandler} >
+            <Button style={{ marginLeft: 8 }} onClick={this.cancelClickHandler} >
               取消
             </Button >
           </FormItem >
@@ -109,7 +116,8 @@ class PageComponent extends Component {
 
 PageComponent.propTypes = {
   param: PropTypes.object.isRequired,
-  form: PropTypes.object.isRequired
+  form: PropTypes.object.isRequired,
+  onTrigger: PropTypes.func.isRequired
 };
 
 const WrappedNormalLoginForm = Form.create()(PageComponent);

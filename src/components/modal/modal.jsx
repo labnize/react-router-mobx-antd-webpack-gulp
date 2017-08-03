@@ -37,10 +37,6 @@ class PageComponent extends Component {
     this.state.option.ok();
   }
 
-  confirmHandler() {
-    this.state.option.ok();
-  }
-
   render() {
     const { modal2Visible, option } = this.state;
     let content = '';
