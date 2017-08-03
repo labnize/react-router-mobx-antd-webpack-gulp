@@ -44,84 +44,74 @@ class PageComponent extends Component {
   render() {
     const { modal2Visible, option } = this.state;
     let content = '';
-    if (option.type) {
-      switch (option.type) {
-        case 'loading':
-          content = (
-            <Modal
-              title=""
-              wrapClassName="vertical-center-modal"
-              visible={modal2Visible}
-              closable={false}
-              footer={null}
-              width={300}
-              className="modal-header"
-            >
-              <Spin tip="加载中..." size="large" />
-            </Modal >
-          );
-          break;
-        case 'notification':
-          content = (
-            <Modal
-              title=""
-              wrapClassName="vertical-center-modal"
-              visible={modal2Visible}
-              width={340}
-              footer={null}
-              onCancel={() => this.setModal2Visible(false)}
-              className="modal-header"
-            >
-              <Alert
-                className="noti-alert"
-                message={option.message}
-                type="success"
-                showIcon
-              />
-            </Modal >
-          );
-          break;
-        case 'error':
-          content = (
-            <Modal
-              title=""
-              wrapClassName="vertical-center-modal"
-              visible={modal2Visible}
-              width={340}
-              onOk={() => this.setModal2Visible(false)}
-              onCancel={() => this.setModal2Visible(false)}
-              className="modal-header"
-            >
-              <Alert
-                className="noti-alert"
-                message={option.message}
-                // description="This is an error message about copywriting."
-                type="error"
-                showIcon
-              />
-            </Modal >
-          );
-          break;
-        case 'dialog': {
-          const Dialog = option.Dialog;
-          content = (
-            <Modal
-              title={option.title}
-              wrapClassName="vertical-center-dialog"
-              visible={modal2Visible}
-              width={440}
-              footer={null}
-              onCancel={() => this.setModal2Visible(false)}
-              className="modal-header"
-            >
-              <Dialog onTrigger={this.eventListener} param={option.param} />
-            </Modal >
-          );
-          break;
-        }
-        default:
-          content = '';
-      }
+    if (option.type && option.type === 'loading') {
+      content = (
+        <Modal
+          title=""
+          wrapClassName="vertical-center-modal"
+          visible={modal2Visible}
+          closable={false}
+          footer={null}
+          width={300}
+          className="modal-header"
+        >
+          <Spin tip="加载中..." size="large" />
+        </Modal >
+      );
+    } else if (option.type && option.type === 'notification') {
+      content = (
+        <Modal
+          title=""
+          wrapClassName="vertical-center-modal"
+          visible={modal2Visible}
+          width={340}
+          footer={null}
+          onCancel={() => this.setModal2Visible(false)}
+          className="modal-header"
+        >
+          <Alert
+            className="noti-alert"
+            message={option.message}
+            type="success"
+            showIcon
+          />
+        </Modal >
+      );
+    } else if (option.type && option.type === 'error') {
+      content = (
+        <Modal
+          title=""
+          wrapClassName="vertical-center-modal"
+          visible={modal2Visible}
+          width={340}
+          onOk={() => this.setModal2Visible(false)}
+          onCancel={() => this.setModal2Visible(false)}
+          className="modal-header"
+        >
+          <Alert
+            className="noti-alert"
+            message={option.message}
+            // description="This is an error message about copywriting."
+            type="error"
+            showIcon
+          />
+        </Modal >
+      );
+    } else if (option.type && option.type === 'dialog') {
+      const Dialog = option.Dialog;
+      content = (
+        <Modal
+          title={option.title}
+          wrapClassName="vertical-center-dialog"
+          visible={modal2Visible}
+          width={440}
+          footer={null}
+          onCancel={() => this.setModal2Visible(false)}
+          className="modal-header"
+        >
+          <Dialog onTrigger={this.eventListener} param={option.param} />
+        </Modal >
+      );
     }
 
     return (
