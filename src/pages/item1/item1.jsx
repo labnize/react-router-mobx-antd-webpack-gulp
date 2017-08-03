@@ -4,8 +4,9 @@ import Tablestore from 'store/tablestore';
 import { observer } from 'mobx-react';
 import { observable } from 'mobx';
 import Layout from 'components/layout2/layout2';
-import ModalDialog from 'components/modal/modaldialog';
+import modal from 'components/modal/modal';
 import UserConfig from './userconfig';
+import UserDelete from './userDelete';
 import './item1.less';
 
 const Search = Input.Search;
@@ -20,13 +21,13 @@ class PageComponent extends Component {
     this.handleTableChange = this.handleTableChange.bind(this);
     this.createUser = this.createUser.bind(this);
     this.editUser = this.editUser.bind(this);
-    this.eventListener = this.eventListener.bind(this);
+    this.searchUser = this.searchUser.bind(this);
 
     this.columns = [{
       title: '用户名',
       dataIndex: 'username',
       key: 'username',
-      render: text => <a href="#" >{text}</a >
+      render: text => <a>{text}</a >
     }, {
       title: '角色名',
       dataIndex: 'rolename',
@@ -52,7 +53,7 @@ class PageComponent extends Component {
         <span >
           <a onClick={() => this.editUser(index)} role="presentation" >编辑</a >
           <span className="ant-divider" />
-          <a >删除</a >
+          <a onClick={() => this.deleteUser(index)} role="presentation" >删除</a >
         </span >
       )
     }];
@@ -66,13 +67,13 @@ class PageComponent extends Component {
     console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
   };
 
+  title = () => '用户管理';
+
   @observable obserdata = {
     sorterField: '',
     sorterOrder: '',
-    title: '',
-    visible: false,
     tableList: [],
-    param: {}
+    searchValue: ''
   };
 
   doQuery() {
@@ -84,7 +85,8 @@ class PageComponent extends Component {
         pageSize: store.data.pagination.pageSize,
         current: store.data.pagination.current,
         sorterField: this.obserdata.sorterField,
-        sorterOrder: this.obserdata.sorterOrder
+        sorterOrder: this.obserdata.sorterOrder,
+        searchValue: this.obserdata.searchValue
       }
     };
     store.fetchData(param);
@@ -98,33 +100,50 @@ class PageComponent extends Component {
   }
 
   createUser() {
-    this.obserdata.title = '新增用户';
-    this.obserdata.visible = true;
-    this.obserdata.param = {};
+    modal.showModel({
+      type: 'dialog',
+      title: '新增用户',
+      Dialog: UserConfig,
+      ok: () => {
+        this.doQuery();
+      },
+      param: {}
+    });
   }
 
   editUser(index) {
-    this.obserdata.title = '编辑用户';
-    this.obserdata.visible = true;
-    this.obserdata.param = this.obserdata.tableList[index];
+    modal.showModel({
+      type: 'dialog',
+      title: '编辑用户',
+      Dialog: UserConfig,
+      ok: () => {
+        this.doQuery();
+      },
+      param: this.obserdata.tableList[index]
+    });
   }
 
-  eventListener(type, param) {
-    if (type === 'visible') {
-      this.obserdata.visible = param;
-    }
-    if (type === 'doQuery') {
-      this.doQuery();
-    }
+  deleteUser(index) {
+    modal.showModel({
+      type: 'dialog',
+      title: '删除用户',
+      Dialog: UserDelete,
+      ok: () => {
+        this.doQuery();
+      },
+      param: {
+        id: [index],
+        text: '确定要删除该用户吗？'
+      }
+    });
+  }
+
+  searchUser(value) {
+    this.obserdata.searchValue = value;
+    this.doQuery();
   }
 
   render() {
-    const option = {
-      title: this.obserdata.title,
-      visible: this.obserdata.visible,
-      dialog: UserConfig,
-      param: this.obserdata.param
-    };
     const dataSource = store.data.list.slice();
     this.obserdata.tableList = dataSource;
     const rowSelection = {
@@ -137,7 +156,7 @@ class PageComponent extends Component {
             <Search
               placeholder="用户名"
               style={{ width: 200 }}
-              onSearch={value => console.log(value)}
+              onSearch={value => this.searchUser(value)}
             />
             <span className="apart-line" />
             <Button type="primary" onClick={this.createUser} >新增用户</Button >
@@ -152,7 +171,6 @@ class PageComponent extends Component {
               title={this.title}
             />
           </div >
-          <ModalDialog option={option} onTrigger={this.eventListener} />
         </div >
       </Layout >
     );

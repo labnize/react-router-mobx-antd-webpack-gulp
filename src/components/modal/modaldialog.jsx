@@ -18,6 +18,18 @@ class PageComponent extends Component {
 
   render() {
     const { option } = this.props;
+    // let modalContent = '';
+    // if (option.operateType === 'delete') {
+    //   modalContent = (<Modal
+    //     title={option.title}
+    //     wrapClassName="vertical-center-dialog"
+    //     visible={option.visible}
+    //     width={440}
+    //     footer={null}
+    //     onCancel={() => this.setVisible(false)}
+    //     className="modal-header"
+    //   />);
+    // }
     const Dialog = option.dialog;
     return (
       <div >

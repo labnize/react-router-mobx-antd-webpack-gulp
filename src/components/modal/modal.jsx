@@ -12,6 +12,7 @@ class PageComponent extends Component {
       modal2Visible: false,
       option: {}
     };
+    this.eventListener = this.eventListener.bind(this);
   }
 
   setModal2Visible(modal2Visible) {
@@ -32,6 +33,14 @@ class PageComponent extends Component {
     });
   }
 
+  eventListener() {
+    this.state.option.ok();
+  }
+
+  confirmHandler() {
+    this.state.option.ok();
+  }
+
   render() {
     const { modal2Visible, option } = this.state;
     let content = '';
@@ -47,7 +56,7 @@ class PageComponent extends Component {
           className="modal-header"
         >
           <Spin tip="加载中..." size="large" />
-        </Modal>
+        </Modal >
       );
     } else if (option.type && option.type === 'notification') {
       content = (
@@ -66,7 +75,7 @@ class PageComponent extends Component {
             type="success"
             showIcon
           />
-        </Modal>
+        </Modal >
       );
     } else if (option.type && option.type === 'error') {
       content = (
@@ -86,30 +95,29 @@ class PageComponent extends Component {
             type="error"
             showIcon
           />
-        </Modal>
+        </Modal >
+      );
+    } else if (option.type && option.type === 'dialog') {
+      const Dialog = option.Dialog;
+      content = (
+        <Modal
+          title={option.title}
+          wrapClassName="vertical-center-dialog"
+          visible={modal2Visible}
+          width={440}
+          footer={null}
+          onCancel={() => this.setModal2Visible(false)}
+          className="modal-header"
+        >
+          <Dialog onTrigger={this.eventListener} param={option.param} />
+        </Modal >
       );
     }
-    // else if (option.type && option.type === 'dialog') {
-    //   const Dialog = option.dialog;
-    //   content = (
-    //     <Modal
-    //       title={option.title}
-    //       wrapClassName="vertical-center-dialog"
-    //       visible={modal2Visible}
-    //       width={440}
-    //       footer={null}
-    //       onCancel={() => this.setModal2Visible(false)}
-    //       className="modal-header"
-    //     >
-    //       <Dialog />
-    //     </Modal>
-    //   );
-    // }
 
     return (
-      <div>
+      <div >
         {content}
-      </div>
+      </div >
     );
   }
 }

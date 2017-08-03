@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Form, Input, Radio, Button } from 'antd';
 import Ajax from 'util/ajax';
 import PropTypes from 'prop-types';
+import modal from 'components/modal/modal';
 
 import './userConfig.less';
 
@@ -10,9 +11,8 @@ const { TextArea } = Input;
 const url = 'claa/tablelist';
 
 class PageComponent extends Component {
-  constructor() {
-    super();
-    this.cancelClickHandler = this.cancelClickHandler.bind(this);
+  static cancelClickHandler() {
+    modal.closeModel();
   }
   handleSubmit = (e) => {
     e.preventDefault();
@@ -21,7 +21,7 @@ class PageComponent extends Component {
         console.log('Received values of form: ', values);
         const that = this;
         const param = {
-          loadingFlag: true,
+          loadingFlag: false,
           url,
           method: 'POST',
           data: {
@@ -30,8 +30,7 @@ class PageComponent extends Component {
             userDesc: values.userDesc
           },
           successFn() {
-            that.props.onTrigger('visible', false);
-            that.props.onTrigger('doQuery');
+            that.props.onTrigger();
           }
         };
         Ajax.fetch(param);
@@ -39,21 +38,17 @@ class PageComponent extends Component {
     });
   };
 
-  cancelClickHandler() {
-    this.props.onTrigger('visible', false);
-  }
-
   render() {
     const { param } = this.props;
     const rolename = param.rolename ? param.rolename : '';
     const username = param.username ? param.username : '';
     const desc = param.desc ? param.desc : '';
+
     const formItemLayout = {
       labelCol: { span: 5 },
       wrapperCol: { span: 16 }
     };
     const { getFieldDecorator } = this.props.form;
-    debugger;
     return (
       <div >
         <Form onSubmit={this.handleSubmit} layout="horizontal" className="userConfig" >
@@ -61,7 +56,8 @@ class PageComponent extends Component {
             label="用户类型"
             {...formItemLayout}
           >
-            {getFieldDecorator('rolename', { initialValue: rolename }, {
+            {getFieldDecorator('rolename', {
+              initialValue: rolename,
               rules: [{ required: true, message: '请选择用户类型!' }]
             })(
               <Radio.Group >
@@ -74,7 +70,8 @@ class PageComponent extends Component {
             label="用户名"
             {...formItemLayout}
           >
-            {getFieldDecorator('username', { initialValue: username }, {
+            {getFieldDecorator('username', {
+              initialValue: username,
               rules: [{ required: true, message: '请输入用户名!' }]
             })(
               <Input placeholder="请填写用户名" />
@@ -84,7 +81,8 @@ class PageComponent extends Component {
             label="用户描述"
             {...formItemLayout}
           >
-            {getFieldDecorator('userDesc', { initialValue: desc }, {
+            {getFieldDecorator('userDesc', {
+              initialValue: desc,
               rules: [{ required: true, message: '请输入用户描述!' }]
             })(
               <TextArea rows={4} />
@@ -97,7 +95,7 @@ class PageComponent extends Component {
             <Button type="primary" htmlType="submit" >
               确定
             </Button >
-            <Button style={{ marginLeft: 8 }} onClick={this.cancelClickHandler} >
+            <Button style={{ marginLeft: 8 }} onClick={PageComponent.cancelClickHandler} >
               取消
             </Button >
           </FormItem >
@@ -108,7 +106,6 @@ class PageComponent extends Component {
 }
 
 PageComponent.propTypes = {
-  onTrigger: PropTypes.func.isRequired,
   param: PropTypes.object.isRequired,
   form: PropTypes.object.isRequired
 };
