@@ -109,7 +109,6 @@ class PageComponent extends Component {
         </Modal >
       );
     }
-
     return (
       <div >
         {content}

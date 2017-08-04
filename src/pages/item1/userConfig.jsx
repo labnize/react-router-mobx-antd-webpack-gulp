@@ -11,16 +11,14 @@ const { TextArea } = Input;
 const url = 'claa/tablelist';
 
 class PageComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.cancelClickHandler = this.cancelClickHandler.bind(this);
+  static cancelClickHandler() {
+    modal.closeModel();
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        debugger;
         console.log('Received values of form: ', values);
         const that = this;
         const param = {
@@ -41,18 +39,7 @@ class PageComponent extends Component {
     });
   };
 
-  cancelClickHandler() {
-    // modal.closeModel();
-    this.props.onTrigger();
-  }
-
   render() {
-    const { param } = this.props;
-    const rolename = param.rolename ? param.rolename : '';
-    const username = param.username ? param.username : '';
-    const desc = param.desc ? param.desc : '';
-
-    debugger;
     const formItemLayout = {
       labelCol: { span: 5 },
       wrapperCol: { span: 16 }
@@ -66,7 +53,6 @@ class PageComponent extends Component {
             {...formItemLayout}
           >
             {getFieldDecorator('rolename', {
-              initialValue: rolename,
               rules: [{ required: true, message: '请选择用户类型!' }]
             })(
               <Radio.Group >
@@ -80,7 +66,6 @@ class PageComponent extends Component {
             {...formItemLayout}
           >
             {getFieldDecorator('username', {
-              initialValue: username,
               rules: [{ required: true, message: '请输入用户名!' }]
             })(
               <Input placeholder="请填写用户名" />
@@ -91,7 +76,6 @@ class PageComponent extends Component {
             {...formItemLayout}
           >
             {getFieldDecorator('userDesc', {
-              initialValue: desc,
               rules: [{ required: true, message: '请输入用户描述!' }]
             })(
               <TextArea rows={4} />
@@ -104,7 +88,7 @@ class PageComponent extends Component {
             <Button type="primary" htmlType="submit" >
               确定
             </Button >
-            <Button style={{ marginLeft: 8 }} onClick={this.cancelClickHandler} >
+            <Button style={{ marginLeft: 8 }} onClick={PageComponent.cancelClickHandler} >
               取消
             </Button >
           </FormItem >
@@ -115,10 +99,20 @@ class PageComponent extends Component {
 }
 
 PageComponent.propTypes = {
-  param: PropTypes.object.isRequired,
-  form: PropTypes.object.isRequired,
-  onTrigger: PropTypes.func.isRequired
+  form: PropTypes.object.isRequired
 };
 
-const WrappedNormalLoginForm = Form.create()(PageComponent);
+const WrappedNormalLoginForm = Form.create({
+  mapPropsToFields(props) {
+    const { param } = props;
+    const rolename = param.rolename ? param.rolename : '';
+    const username = param.username ? param.username : '';
+    const desc = param.desc ? param.desc : '';
+    return {
+      rolename: { value: rolename },
+      username: { value: username },
+      userDesc: { value: desc }
+    };
+  }
+})(PageComponent);
 export default WrappedNormalLoginForm;
