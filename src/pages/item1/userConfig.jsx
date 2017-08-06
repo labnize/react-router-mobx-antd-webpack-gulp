@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Form, Input, Radio, Button } from 'antd';
-import Ajax from 'util/ajax';
 import PropTypes from 'prop-types';
 import modal from 'components/modal/modal';
 
@@ -8,7 +7,6 @@ import './userConfig.less';
 
 const FormItem = Form.Item;
 const { TextArea } = Input;
-const url = 'claa/tablelist';
 
 class PageComponent extends Component {
   static cancelClickHandler() {
@@ -20,21 +18,28 @@ class PageComponent extends Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
-        const that = this;
+        // const that = this;
+        // const param = {
+        //   loadingFlag: false,
+        //   url,
+        //   method: 'POST',
+        //   data: {
+        //     username: values.username,
+        //     rolename: values.rolename,
+        //     userDesc: values.userDesc
+        //   },
+        //   successFn() {
+        //     that.props.onTrigger();
+        //   }
+        // };
+        // Ajax.fetch(param);
+
         const param = {
-          loadingFlag: false,
-          url,
-          method: 'POST',
-          data: {
-            username: values.username,
-            rolename: values.rolename,
-            userDesc: values.userDesc
-          },
-          successFn() {
-            that.props.onTrigger();
-          }
+          username: values.username,
+          rolename: values.rolename,
+          userDesc: values.userDesc
         };
-        Ajax.fetch(param);
+        this.props.onTrigger(param);
       }
     });
   };
@@ -99,7 +104,8 @@ class PageComponent extends Component {
 }
 
 PageComponent.propTypes = {
-  form: PropTypes.object.isRequired
+  form: PropTypes.object.isRequired,
+  onTrigger: PropTypes.func.isRequired
 };
 
 const WrappedNormalLoginForm = Form.create({
