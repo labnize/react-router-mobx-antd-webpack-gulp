@@ -100,39 +100,80 @@ class PageComponent extends Component {
   }
 
   createUser() {
+    const that = this;
     modal.showModel({
       type: 'dialog',
       title: '新增用户',
       Dialog: UserConfig,
-      ok: () => {
-        this.doQuery();
+      ok: (value) => {
+        const params = {
+          loadingFlag: false,
+          url,
+          method: 'POST',
+          data: {
+            type: 0,
+            username: value.username,
+            rolename: value.rolename,
+            userDesc: value.userDesc
+          },
+          successFn() {
+            that.doQuery();
+          }
+        };
+        store.createUser(params);
       },
       param: {}
     });
   }
 
   editUser(index) {
+    const that = this;
     modal.showModel({
       type: 'dialog',
       title: '编辑用户',
       Dialog: UserConfig,
-      ok: () => {
-        this.doQuery();
+      ok: (value) => {
+        const params = {
+          loadingFlag: false,
+          url,
+          method: 'POST',
+          data: {
+            type: 1,
+            username: value.username,
+            rolename: value.rolename,
+            userDesc: value.userDesc
+          },
+          successFn() {
+            that.doQuery();
+          }
+        };
+        store.createUser(params);
       },
       param: this.obserdata.tableList[index]
     });
   }
 
   deleteUser(index) {
+    const that = this;
     modal.showModel({
       type: 'dialog',
       title: '删除用户',
       Dialog: UserDelete,
       ok: () => {
-        this.doQuery();
+        const params = {
+          loadingFlag: false,
+          url,
+          method: 'POST',
+          data: {
+            id: [index]
+          },
+          successFn() {
+            that.doQuery();
+          }
+        };
+        store.deleteUser(params);
       },
       param: {
-        id: [index],
         text: '确定要删除该用户吗？'
       }
     });

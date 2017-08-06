@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from 'antd';
-import Ajax from 'util/ajax';
 import PropTypes from 'prop-types';
 import modal from 'components/modal/modal';
-
-const url = 'claa/tablelist';
 
 class PageComponent extends Component {
   static cancelClickHandler() {
@@ -16,19 +13,21 @@ class PageComponent extends Component {
   }
 
   okClickHandler() {
-    const that = this;
-    const param = {
-      loadingFlag: false,
-      url,
-      method: 'GET',
-      data: {
-        id: this.props.param.id
-      },
-      successFn() {
-        that.props.onTrigger();
-      }
-    };
-    Ajax.fetch(param);
+    // const that = this;
+    // const param = {
+    //   loadingFlag: false,
+    //   url,
+    //   method: 'GET',
+    //   data: {
+    //     id: this.props.param.id
+    //   },
+    //   successFn() {
+    //     that.props.onTrigger();
+    //   }
+    // };
+    // Ajax.fetch(param);
+
+    this.props.onTrigger();
   }
 
   render() {
@@ -51,7 +50,8 @@ class PageComponent extends Component {
   }
 }
 PageComponent.propTypes = {
-  param: PropTypes.object.isRequired
+  param: PropTypes.object.isRequired,
+  onTrigger: PropTypes.func.isRequired
 };
 
 export default PageComponent;

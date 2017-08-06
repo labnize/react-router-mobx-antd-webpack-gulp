@@ -33,8 +33,8 @@ class PageComponent extends Component {
     });
   }
 
-  eventListener() {
-    this.state.option.ok();
+  eventListener(param) {
+    this.state.option.ok(param);
   }
 
   render() {
@@ -67,7 +67,7 @@ class PageComponent extends Component {
         >
           <Alert
             className="noti-alert"
-            message={option.message}
+            message={option.message ? option.message : ''}
             type="success"
             showIcon
           />
@@ -86,7 +86,7 @@ class PageComponent extends Component {
         >
           <Alert
             className="noti-alert"
-            message={option.message}
+            message={option.message ? option.message : ''}
             // description="This is an error message about copywriting."
             type="error"
             showIcon
@@ -94,10 +94,10 @@ class PageComponent extends Component {
         </Modal >
       );
     } else if (option.type && option.type === 'dialog') {
-      const Dialog = option.Dialog;
+      // const Dialog = option.Dialog ? option.Dialog : (<div />);
       content = (
         <Modal
-          title={option.title}
+          title={option.title ? option.title : ''}
           wrapClassName="vertical-center-dialog"
           visible={modal2Visible}
           width={440}
@@ -105,7 +105,10 @@ class PageComponent extends Component {
           onCancel={() => this.setModal2Visible(false)}
           className="modal-header"
         >
-          <Dialog onTrigger={this.eventListener} param={option.param} />
+          {
+            option.Dialog ? (<option.Dialog onTrigger={this.eventListener} param={option.param} />) : ''
+          }
+          {/* <Dialog onTrigger={this.eventListener} param={option.param} /> */}
         </Modal >
       );
     }

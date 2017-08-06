@@ -33,4 +33,20 @@ export default class Tablestore {
   changeCurrentPage(value) {
     this.data.pagination.current = value;
   }
+
+  createUser(param) {
+    const params = {
+      ...param
+    };
+    console.log(params);
+    Ajax.fetch(params);
+  }
+
+  deleteUser(param) {
+    const params = {
+      ...param
+    };
+    console.log(params);
+    Ajax.fetch(params);
+  }
 }
