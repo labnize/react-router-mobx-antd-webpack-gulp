@@ -10,9 +10,9 @@ import item4 from 'pages/item4/item4';
 
 function App(props) {
   return (
-    <div >
+    <div>
       {props.children}
-    </div >
+    </div>
   );
 }
 
@@ -21,15 +21,15 @@ App.propTypes = {
 };
 
 const routers = (
-  <Router history={browserHistory} >
-    <Route exact path="/" component={App} >
+  <Router history={browserHistory}>
+    <Route exact path="/" component={App}>
       <IndexRoute component={item1} />
       <Route exact path="item1" component={item1} />
       <Route exact path="item2" component={item2} />
       <Route exact path="item3" component={item3} />
       <Route exact path="item4" component={item4} />
-    </Route >
-  </Router >
+    </Route>
+  </Router>
 );
 
 ReactDOM.render(routers, document.getElementById('app'));

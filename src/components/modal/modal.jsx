@@ -13,6 +13,11 @@ class PageComponent extends Component {
       option: {}
     };
     this.eventListener = this.eventListener.bind(this);
+    this.defaultOptions = {
+      type: '',
+      message: '',
+      title: ''
+    };
   }
 
   setModal2Visible(modal2Visible) {
@@ -39,8 +44,9 @@ class PageComponent extends Component {
 
   render() {
     const { modal2Visible, option } = this.state;
+    const options = Object.assign({}, this.defaultOptions, option);
     let content = '';
-    if (option.type && option.type === 'loading') {
+    if (options.type === 'loading') {
       content = (
         <Modal
           title=""
@@ -54,7 +60,7 @@ class PageComponent extends Component {
           <Spin tip="加载中..." size="large" />
         </Modal >
       );
-    } else if (option.type && option.type === 'notification') {
+    } else if (options.type === 'notification') {
       content = (
         <Modal
           title=""
@@ -67,13 +73,13 @@ class PageComponent extends Component {
         >
           <Alert
             className="noti-alert"
-            message={option.message ? option.message : ''}
+            message={options.message}
             type="success"
             showIcon
           />
         </Modal >
       );
-    } else if (option.type && option.type === 'error') {
+    } else if (options.type === 'error') {
       content = (
         <Modal
           title=""
@@ -86,18 +92,18 @@ class PageComponent extends Component {
         >
           <Alert
             className="noti-alert"
-            message={option.message ? option.message : ''}
+            message={options.message}
             // description="This is an error message about copywriting."
             type="error"
             showIcon
           />
         </Modal >
       );
-    } else if (option.type && option.type === 'dialog') {
-      // const Dialog = option.Dialog ? option.Dialog : (<div />);
+    } else if (options.type === 'dialog') {
+      // const Dialog = options.Dialog ? options.Dialog : (<div />);
       content = (
         <Modal
-          title={option.title ? option.title : ''}
+          title={options.title}
           wrapClassName="vertical-center-dialog"
           visible={modal2Visible}
           width={440}
@@ -106,9 +112,9 @@ class PageComponent extends Component {
           className="modal-header"
         >
           {
-            option.Dialog ? (<option.Dialog onTrigger={this.eventListener} param={option.param} />) : ''
+            options.Dialog ? (<options.Dialog onTrigger={this.eventListener} param={options.param} />) : ''
           }
-          {/* <Dialog onTrigger={this.eventListener} param={option.param} /> */}
+          {/* <Dialog onTrigger={this.eventListener} param={options.param} /> */}
         </Modal >
       );
     }
