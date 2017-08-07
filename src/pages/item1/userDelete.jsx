@@ -13,20 +13,6 @@ class PageComponent extends Component {
   }
 
   okClickHandler() {
-    // const that = this;
-    // const param = {
-    //   loadingFlag: false,
-    //   url,
-    //   method: 'GET',
-    //   data: {
-    //     id: this.props.param.id
-    //   },
-    //   successFn() {
-    //     that.props.onTrigger();
-    //   }
-    // };
-    // Ajax.fetch(param);
-
     this.props.onTrigger();
   }
 

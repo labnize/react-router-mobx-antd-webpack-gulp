@@ -18,21 +18,6 @@ class PageComponent extends Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
-        // const that = this;
-        // const param = {
-        //   loadingFlag: false,
-        //   url,
-        //   method: 'POST',
-        //   data: {
-        //     username: values.username,
-        //     rolename: values.rolename,
-        //     userDesc: values.userDesc
-        //   },
-        //   successFn() {
-        //     that.props.onTrigger();
-        //   }
-        // };
-        // Ajax.fetch(param);
 
         const param = {
           username: values.username,

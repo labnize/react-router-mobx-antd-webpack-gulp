@@ -100,7 +100,6 @@ class PageComponent extends Component {
         </Modal >
       );
     } else if (options.type === 'dialog') {
-      // const Dialog = options.Dialog ? options.Dialog : (<div />);
       content = (
         <Modal
           title={options.title}
@@ -114,7 +113,6 @@ class PageComponent extends Component {
           {
             options.Dialog ? (<options.Dialog onTrigger={this.eventListener} param={options.param} />) : ''
           }
-          {/* <Dialog onTrigger={this.eventListener} param={options.param} /> */}
         </Modal >
       );
     }
