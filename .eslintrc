@@ -20,6 +20,7 @@
     "import/no-unresolved": 0,
     "import/extensions": 0,
     "global-require": 0,
-    "react/forbid-prop-types": [2, { "forbid": ["any"] }]
+    "react/forbid-prop-types": [2, { "forbid": ["any"] }],
+    "import/no-dynamic-require": 0
   }
 }

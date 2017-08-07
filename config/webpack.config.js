@@ -1,17 +1,18 @@
-var webpack = require('webpack');
-var autoprefixer = require('autoprefixer');
-var precss = require('precss');
-var path = require('path');
-var defaultSettings = require('./defaults');
-var filePath = defaultSettings.filePath;
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var fs = require('fs');
+const webpack = require('webpack');
+const autoprefixer = require('autoprefixer');
+const precss = require('precss');
+const path = require('path');
+const defaultSettings = require('./defaults');
+
+const filePath = defaultSettings.filePath;
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const fs = require('fs');
 
 const pkgPath = path.join(__dirname, '../package.json');
 const pkg = fs.existsSync(pkgPath) ? require(pkgPath) : {};
 let theme = {};
-if (pkg.theme && typeof(pkg.theme) === 'string') {
+if (pkg.theme && typeof (pkg.theme) === 'string') {
   let cfgPath = pkg.theme;
   // relative path
   if (cfgPath.charAt(0) === '.') {
@@ -19,11 +20,11 @@ if (pkg.theme && typeof(pkg.theme) === 'string') {
   }
   const getThemeConfig = require(cfgPath);
   theme = getThemeConfig();
-} else if (pkg.theme && typeof(pkg.theme) === 'object') {
+} else if (pkg.theme && typeof (pkg.theme) === 'object') {
   theme = pkg.theme;
 }
 
-var webpackConfig = {
+const webpackConfig = {
   entry: {},
   output: {
     path: filePath.build,
@@ -35,13 +36,13 @@ var webpackConfig = {
   resolve: {
     extensions: ['', '.js', '.jsx'],
     alias: {
-      'components': path.join(__dirname, '../src/components'),
-      'pages': path.join(__dirname, '../src/pages'),
-      'localData': path.join(__dirname, '../src/testdata/localdata'),
-      'mockData': path.join(__dirname, '../src/testdata/mockdata'),
-      'util': path.join(__dirname, '../src/utils'),
-      'store': path.join(__dirname, '../src/store'),
-      'jquery': path.join(__dirname, '../node_modules/jquery/dist/jquery.min.js')
+      components: path.join(__dirname, '../src/components'),
+      pages: path.join(__dirname, '../src/pages'),
+      localData: path.join(__dirname, '../src/testdata/localdata'),
+      mockData: path.join(__dirname, '../src/testdata/mockdata'),
+      util: path.join(__dirname, '../src/utils'),
+      store: path.join(__dirname, '../src/store'),
+      jquery: path.join(__dirname, '../node_modules/jquery/dist/jquery.min.js')
     }
   },
   module: {
@@ -67,8 +68,8 @@ var webpackConfig = {
         loader: 'json-loader'
       },
       {
-        test(filePath) {
-          return /\.less$/.test(filePath) && !/\.module\.less$/.test(filePath);
+        test(file) {
+          return /\.less$/.test(file) && !/\.module\.less$/.test(file);
         },
         loader: ExtractTextPlugin.extract(
           'css?sourceMap!' +
@@ -86,7 +87,7 @@ var webpackConfig = {
       }
     ]
   },
-  postcss: function () {
+  postcss() {
     return [precss, autoprefixer];
   },
   plugins: [
@@ -118,9 +119,9 @@ function injectHtmlWebpack() {
   );
 }
 
-(function () {
+(function init() {
   injectEntry();
   injectHtmlWebpack();
-})();
+}());
 
 module.exports = webpackConfig;
