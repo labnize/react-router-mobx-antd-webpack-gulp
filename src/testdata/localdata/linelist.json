@@ -1,0 +1,52 @@
+{
+  "code": 0,
+  "list": [
+    {
+      "id": "1",
+      "name": "平台",
+      "counttime": "2016-11-08 16:19",
+      "successrate": 22,
+      "maxsuccessimagerate": 82,
+      "maxsuccessregionrate": 56,
+      "maxfailimagerate": 92,
+      "maxfailregionrate": 33
+    },{
+      "id": "2",
+      "name": "平台",
+      "counttime": "2016-11-08 17:19",
+      "successrate": 32,
+      "maxsuccessimagerate": 52,
+      "maxsuccessregionrate": 66,
+      "maxfailimagerate": 22,
+      "maxfailregionrate": 23
+    },{
+      "id": "3",
+      "name": "平台",
+      "counttime": "2016-11-08 18:19",
+      "successrate": 42,
+      "maxsuccessimagerate": 32,
+      "maxsuccessregionrate": 76,
+      "maxfailimagerate": 32,
+      "maxfailregionrate": 43
+    },{
+      "id": "4",
+      "name": "平台",
+      "counttime": "2016-11-08 19:19",
+      "successrate": 22,
+      "maxsuccessimagerate": 42,
+      "maxsuccessregionrate": 6,
+      "maxfailimagerate": 142,
+      "maxfailregionrate": 13
+    },{
+      "id": "5",
+      "name": "平台",
+      "counttime": "2016-11-08 20:19",
+      "successrate": 62,
+      "maxsuccessimagerate": 52,
+      "maxsuccessregionrate": 96,
+      "maxfailimagerate": 52,
+      "maxfailregionrate": 73
+    }
+  ],
+  "message": "error"
+}

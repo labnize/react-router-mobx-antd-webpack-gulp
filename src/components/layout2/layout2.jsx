@@ -61,7 +61,7 @@ class PageComponent extends Component {
         <Layout >
           <Header />
           <Content style={{ margin: '24px 16px 0' }} >
-            <div className="content-layout" style={{ padding: 24, background: '#fff', minHeight: 360 }} >
+            <div className="content-layout" >
               {children}
             </div >
           </Content >
