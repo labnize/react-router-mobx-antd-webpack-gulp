@@ -40,7 +40,7 @@ class PageComponent extends Component {
           <Tabs defaultActiveKey="1">
             <TabPane tab="Tab 1" key="1">
               <div className="tabLine">
-                <Lines param={lineData} type="1" />
+                <Lines param={lineData} />
               </div>
             </TabPane>
             <TabPane tab="Tab 2" key="2">Content of Tab Pane 2</TabPane>

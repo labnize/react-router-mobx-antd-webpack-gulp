@@ -10,6 +10,7 @@ class PageComponent extends Component {
     this.resizeLines = this.resizeLines.bind(this);
   }
   componentDidMount() {
+    LineChart = echarts.init(document.getElementById('lineChart'));
     if (this.props.param && this.props.param.length) {
       this.initLines();
     }
@@ -19,7 +20,7 @@ class PageComponent extends Component {
   componentWillReceiveProps(nextProps) {
     if (this.props !== nextProps) {
       this.props = nextProps;
-      if (this.props.param.length) {
+      if (this.props.param && this.props.param.length) {
         this.initLines();
       }
     }
@@ -27,7 +28,10 @@ class PageComponent extends Component {
 
   resizeLines() {
     LineChart.dispose();
-    this.initLines();
+    LineChart = echarts.init(document.getElementById('lineChart'));
+    if (this.props.param && this.props.param.length) {
+      this.initLines();
+    }
   }
 
   initLines() {
@@ -46,8 +50,6 @@ class PageComponent extends Component {
       maxfailregionrate.push(value.maxfailregionrate);
       counttime.push(value.counttime);
     });
-
-    LineChart = echarts.init(document.getElementById('lineChart'));
 
     const option = {
       title: {
