@@ -4,11 +4,13 @@ import { observer } from 'mobx-react';
 import Layout from 'components/layout2/layout2';
 import Echartstore from 'store/echartstore';
 import Lines from './line';
+import Pie from './pie';
 import './item.less';
 
 
 const TabPane = Tabs.TabPane;
-const url = 'claa/linelist';
+const urlLine = 'claa/linelist';
+const urlPie = 'claa/pielist';
 const store = new Echartstore();
 
 @observer
@@ -18,22 +20,33 @@ class PageComponent extends Component {
   }
 
   componentDidMount() {
-    this.doQuery();
-    // window.onresize = this.doQuery;
+    this.doQueryLine();
+    this.doQueryPie();
   }
 
-  doQuery() {
+  doQueryLine() {
     const param = {
       loadingFlag: true,
-      url,
+      url: urlLine,
       method: 'GET',
       data: {}
     };
     store.fetchData(param);
   }
 
+  doQueryPie() {
+    const param = {
+      loadingFlag: true,
+      url: urlPie,
+      method: 'GET',
+      data: {}
+    };
+    store.fetchPieData(param);
+  }
+
   render() {
     const lineData = store.data.list.slice();
+    const pieData = store.data.pieList.slice();
     return (
       <Layout name="item2">
         <div className="item2">
@@ -43,7 +56,11 @@ class PageComponent extends Component {
                 <Lines param={lineData} />
               </div>
             </TabPane>
-            <TabPane tab="Tab 2" key="2">Content of Tab Pane 2</TabPane>
+            <TabPane tab="Tab 2" key="2">
+              <div className="tabLine">
+                <Pie param={pieData} />
+              </div>
+            </TabPane>
           </Tabs>
         </div>
       </Layout>
