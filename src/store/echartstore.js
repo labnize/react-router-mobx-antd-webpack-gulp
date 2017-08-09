@@ -11,9 +11,11 @@ export default class Echartstore {
     const that = this;
     const params = {
       successFn(data) {
-        const dataObserve = { ...that.data };
-        dataObserve.list = data.list;
-        that.data = dataObserve;
+        if (data.list && data.list.length) {
+          const dataObserve = { ...that.data };
+          dataObserve.list = data.list;
+          that.data = dataObserve;
+        }
       },
       ...param
     };
@@ -25,9 +27,11 @@ export default class Echartstore {
     const that = this;
     const params = {
       successFn(data) {
-        const dataObserve = { ...that.data };
-        dataObserve.pieList = data.list;
-        that.data = dataObserve;
+        if (data.list && data.list.length) {
+          const dataObserve = { ...that.data };
+          dataObserve.pieList = data.list;
+          that.data = dataObserve;
+        }
       },
       ...param
     };
