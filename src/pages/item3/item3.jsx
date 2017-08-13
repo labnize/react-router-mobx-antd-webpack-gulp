@@ -15,10 +15,10 @@ class PageComponent extends Component {
   }
 
   componentDidMount() {
-    this.doQuery();
+    PageComponent.doQuery();
   }
 
-  doQuery() {
+  static doQuery() {
     const param = {
       loadingFlag: true,
       url,
