@@ -1,9 +1,8 @@
-.item3{
+.item3 {
   position: relative;
-  .search{
-    position: absolute;
-    right: 0;
-    z-index: 99;
+  .search {
+    padding-bottom: 30px;
+    border-bottom: 1px solid #cccccc;
     .apart-line {
       position: relative;
       display: inline-block;
@@ -12,6 +11,24 @@
       top: 9px;
       margin: 0 10px;
       background: rgb(229, 235, 241);
+    }
+  }
+  .pos {
+    #picDiv
+    {
+      background:#fff;
+      padding:0;
+      min-width:420px;
+      min-height:420px;
+      width:100%;
+      float:left;
+      overflow:hidden;
+      position:relative;
+      cursor:move;
+      .dragAble {
+        position: absolute;
+        cursor: move;
+      }
     }
   }
 }

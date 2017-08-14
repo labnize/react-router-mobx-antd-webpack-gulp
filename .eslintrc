@@ -21,6 +21,7 @@
     "import/extensions": 0,
     "global-require": 0,
     "react/forbid-prop-types": [2, { "forbid": ["any"] }],
-    "import/no-dynamic-require": 0
+    "import/no-dynamic-require": 0,
+    "no-mixed-operators": 0
   }
 }
