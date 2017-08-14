@@ -3,6 +3,8 @@ import { Button } from 'antd';
 import { observer } from 'mobx-react';
 import Layout from 'components/layout2/layout2';
 import Positionstore from 'store/positionstore';
+import imgPin from 'images/pin.png';
+import imgPosition from 'images/position.jpg';
 import './item3.less';
 
 const store = new Positionstore();
@@ -180,12 +182,12 @@ class PageComponent extends Component {
                     key={value.id}
                     className="pos-pin-img"
                     id={`pin-img${value.id}`}
-                    src="res/images/pin.png"
+                    src={imgPin}
                     alt=""
                     style={{ left: `${value.left}px`, top: `${value.top}px`, width: '35px', position: 'absolute' }}
                   />)
                 ) : ''}
-                <img className="pos-bg-img" src="res/images/position.jpg" alt="" />
+                <img className="pos-bg-img" src={imgPosition} alt="" />
               </div>
             </div>
           </div>

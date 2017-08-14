@@ -40,6 +40,7 @@ const webpackConfig = {
     extensions: ['', '.js', '.jsx'],
     alias: {
       components: path.join(__dirname, '../src/components'),
+      images: path.join(__dirname, '../res/images'),
       pages: path.join(__dirname, '../src/pages'),
       localData: path.join(__dirname, '../src/testdata/localdata'),
       mockData: path.join(__dirname, '../src/testdata/mockdata'),
@@ -61,7 +62,7 @@ const webpackConfig = {
       },
       {
         test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg)$/,
-        loader: 'url-loader?limit=1&name=res/[name].[hash:8].[ext]'
+        loader: 'url-loader?limit=1&name=images/[name].[hash:8].[ext]'
       },
       {
         test: /\.json$/,
@@ -105,7 +106,7 @@ const webpackConfig = {
       filename: 'common.[hash].js',
       chunks: defaultSettings.chunks
     }),
-    new ExtractTextPlugin('[name].css'),
+    new ExtractTextPlugin('app.[hash].css'),
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: false,
       compress: {
@@ -133,9 +134,7 @@ const webpackConfig = {
 };
 
 function injectEntry() {
-  webpackConfig.entry[defaultSettings.pagesToPath().name] = [
-    defaultSettings.pagesToPath().entry
-  ];
+  webpackConfig.entry.app = defaultSettings.pagesToPath().entry;
 }
 
 function injectHtmlWebpack() {
@@ -143,7 +142,7 @@ function injectHtmlWebpack() {
     new HtmlWebpackPlugin({
       filename: defaultSettings.pagesToPath().fln,
       template: defaultSettings.pagesToPath().templates,
-      chunks: ['common', defaultSettings.pagesToPath().name],
+      chunks: ['common', 'app'],
       inject: true,
       minify: {
         removeComments: true,

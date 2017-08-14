@@ -37,6 +37,7 @@ const webpackConfig = {
     extensions: ['', '.js', '.jsx'],
     alias: {
       components: path.join(__dirname, '../src/components'),
+      images: path.join(__dirname, '../res/images'),
       pages: path.join(__dirname, '../src/pages'),
       localData: path.join(__dirname, '../src/testdata/localdata'),
       mockData: path.join(__dirname, '../src/testdata/mockdata'),
@@ -61,7 +62,7 @@ const webpackConfig = {
       },
       {
         test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg)$/,
-        loader: 'url-loader?limit=1&name=res/[name].[hash:8].[ext]'
+        loader: 'url-loader?limit=1&name=images/[name].[hash:8].[ext]'
       },
       {
         test: /\.json$/,
