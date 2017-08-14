@@ -116,6 +116,34 @@ class PageComponent extends Component {
     PageComponent.imgScale(false);
   }
 
+  /* 以下是为了兼容切换到手机模式的拖拽事件*/
+  static initTouchDrag(e) {
+    let oDragHandle = nn6 ? e.target : event.srcElement;
+    const topElement = 'HTML';
+    while (oDragHandle.tagName !== topElement && oDragHandle.className !== 'dragAble') {
+      oDragHandle = nn6 ? oDragHandle.parentNode : oDragHandle.parentElement;
+    }
+    if (oDragHandle.className === 'dragAble') {
+      isdrag = true;
+      oDragObj = oDragHandle;
+      nTY = parseInt(oDragObj.style.top + 0, 10);
+      y = nn6 ? e.touches[0].clientY : event.touches[0].clientY;
+      nTX = parseInt(oDragObj.style.left + 0, 10);
+      x = nn6 ? e.touches[0].clientX : event.touches[0].clientX;
+      document.addEventListener('touchmove', PageComponent.touchmoveMouse);
+      return false;
+    }
+    return true;
+  }
+
+  // touch鼠标移动
+  static touchmoveMouse(e) {
+    oDragObj.style.top = `${nn6 ? nTY + e.touches[0].clientY - y : nTY + event.touches[0].clientY - y}px`;
+    oDragObj.style.left = `${nn6 ? nTX + e.touches[0].clientX - x : nTX + event.touches[0].clientX - x}px`;
+    return false;
+  }
+  /* 以上是为了兼容切换到手机模式的拖拽事件*/
+
   componentDidMount() {
     const picDiv = $('#picDiv');
     let layoutHeight = $(window).height() - 157;
@@ -129,6 +157,8 @@ class PageComponent extends Component {
     PageComponent.doQuery();
     document.onmousedown = PageComponent.initDrag;
     document.onmouseup = PageComponent.offDrag;
+    document.addEventListener('touchstart', PageComponent.initTouchDrag);
+    document.ontouchend = PageComponent.offDrag;
   }
 
 
