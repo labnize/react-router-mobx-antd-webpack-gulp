@@ -117,6 +117,15 @@ class PageComponent extends Component {
   }
 
   componentDidMount() {
+    const picDiv = $('#picDiv');
+    let layoutHeight = $(window).height() - 157;
+    let picHeight = `${layoutHeight - 91.5}px`;
+    picDiv.css('height', picHeight);
+    $(window).resize(() => {
+      layoutHeight = $(window).height() - 157;
+      picHeight = `${layoutHeight - 91.5}px`;
+      picDiv.css('height', picHeight);
+    });
     PageComponent.doQuery();
     document.onmousedown = PageComponent.initDrag;
     document.onmouseup = PageComponent.offDrag;
