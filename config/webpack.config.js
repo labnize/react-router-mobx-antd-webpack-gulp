@@ -73,17 +73,9 @@ const webpackConfig = {
           return /\.less$/.test(file) && !/\.module\.less$/.test(file);
         },
         loader: ExtractTextPlugin.extract(
-          'css?sourceMap!' +
-          'postcss!' +
-          `less-loader?{"sourceMap":true,"modifyVars":${JSON.stringify(theme)}}`
-        )
-      },
-      {
-        test: /\.module\.less$/,
-        loader: ExtractTextPlugin.extract(
-          'css?sourceMap&modules&localIdentName=[local]___[hash:base64:5]!!' +
-          'postcss!' +
-          `less-loader?{"sourceMap":true,"modifyVars":${JSON.stringify(theme)}}`
+          `${require.resolve('css-loader')}?sourceMap&-autoprefixer!` +
+          `${require.resolve('postcss-loader')}!` +
+          `${require.resolve('less-loader')}?{"sourceMap":true,"modifyVars":${JSON.stringify(theme)}}`
         )
       }
     ]
