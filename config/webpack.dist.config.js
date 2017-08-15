@@ -37,7 +37,7 @@ const webpackConfig = {
   cache: false,
   devtool: false,
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['.js', '.jsx'],
     alias: {
       components: path.join(__dirname, '../src/components'),
       images: path.join(__dirname, '../res/images'),
@@ -50,23 +50,32 @@ const webpackConfig = {
     }
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /.jsx?$/,
-        loaders: ['react-hot', 'babel-loader', 'webpack-module-hot-accept'],
+        use: [
+          {
+            loader: 'react-hot-loader'
+          },
+          {
+            loader: 'babel-loader'
+          },
+          {
+            loader: 'webpack-module-hot-accept'
+          }
+        ],
         exclude: /node_modules/
       },
       {
         test: /\.css$/,
-        loader: 'style!css!postcss'
+        use: [
+          'style-loader',
+          'css-loader'
+        ]
       },
       {
         test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg)$/,
-        loader: 'url-loader?limit=1&name=images/[name].[hash:8].[ext]'
-      },
-      {
-        test: /\.json$/,
-        loader: 'json-loader'
+        use: ['url-loader?limit=1&name=images/[name].[hash:8].[ext]']
       },
       {
         test(file) {
@@ -74,18 +83,13 @@ const webpackConfig = {
         },
         loader: ExtractTextPlugin.extract(
           `${require.resolve('css-loader')}?sourceMap&-autoprefixer!` +
-          `${require.resolve('postcss-loader')}!` +
           `${require.resolve('less-loader')}?{"sourceMap":true,"modifyVars":${JSON.stringify(theme)}}`
         )
       }
     ]
   },
-  postcss() {
-    return [precss, autoprefixer];
-  },
   plugins: [
-    new webpack.optimize.DedupePlugin(), // JS库有自己的依赖树，并且这些库可能有交叉的依赖，DedupePlugin可以找出他们并删除重复的依赖
-    new webpack.optimize.OccurenceOrderPlugin(), // 为组件分配ID，通过这个插件webpack可以分析和优先考虑使用最多的模块，并为它们分配最小的ID
+    // new webpack.optimize.OccurenceOrderPlugin(), // 为组件分配ID，通过这个插件webpack可以分析和优先考虑使用最多的模块，并为它们分配最小的ID
     new webpack.optimize.AggressiveMergingPlugin(),
     // definePlugin 接收字符串插入到代码当中, 所以你需要的话可以写上 JS 的字符串
     new webpack.DefinePlugin({
@@ -94,11 +98,15 @@ const webpackConfig = {
       }
     }),
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'common',
+      names: 'common',
       filename: 'common.[hash].js',
       chunks: defaultSettings.chunks
     }),
-    new ExtractTextPlugin('app.[hash].css'),
+    new ExtractTextPlugin({
+      filename: 'app.[hash].css',
+      disable: false,
+      allChunks: true
+    }),
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: false,
       compress: {
@@ -111,7 +119,7 @@ const webpackConfig = {
         comments: false
       }
     }),
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new ProgressBarPlugin({
       format: '  build [:bar] :percent (:elapsed seconds)',
       clear: false,
