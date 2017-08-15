@@ -34,7 +34,7 @@ const webpackConfig = {
   cache: true,
   devtool: 'inline-source-map',
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['.js', '.jsx'],
     alias: {
       components: path.join(__dirname, '../src/components'),
       images: path.join(__dirname, '../res/images'),
@@ -47,31 +47,72 @@ const webpackConfig = {
     }
   },
   module: {
-    noParse: [
-      path.join(__dirname, '../node_modules/jquery/dist/jquery.min.js')
-    ],
-    loaders: [
+    rules: [
       {
         test: /.jsx?$/,
-        loaders: ['react-hot', 'babel-loader', 'webpack-module-hot-accept'],
+        // loaders: ['react-hot', 'babel-loader', 'webpack-module-hot-accept'],
+        use: [
+          {
+            loader: 'react-hot-loader'
+          },
+          {
+            loader: 'babel-loader'
+          },
+          {
+            loader: 'webpack-module-hot-accept'
+          }
+        ],
         exclude: /node_modules/
       },
       {
         test: /\.css$/,
-        loader: 'style!css!postcss'
+        // loader: 'style!css!postcss',
+        use: [
+          'style-loader',
+          'css-loader',
+          'postcss-loader'
+        ]
       },
       {
         test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg)$/,
-        loader: 'url-loader?limit=1&name=images/[name].[hash:8].[ext]'
+        use: ['url-loader?limit=1&name=images/[name].[hash:8].[ext]']
+        // use: [
+        //   {
+        //     loader: 'url-loader',
+        //     options: {
+        //       limit: 1,
+        //       name: 'images/[name].[hash:8].[ext]'
+        //     }
+        //   }
+        // ]
       },
-      {
-        test: /\.json$/,
-        loader: 'json-loader'
-      },
+      // {
+      //   test: /\.json$/,
+      //   loader: 'json-loader'
+      // },
       {
         test(file) {
           return /\.less$/.test(file) && !/\.module\.less$/.test(file);
         },
+        // use: [
+        //   {
+        //     loader: ExtractTextPlugin.extract(
+        //       'css-loader?sourceMap&-autoprefixer!' +
+        //       'postcss-loader!' +
+        //       `less-loader?{"sourceMap":true,"modifyVars":${JSON.stringify(theme)}}`
+        //     )
+        //   }
+        // ]
+        // loader: ExtractTextPlugin.extract(
+        //   'css-loader?sourceMap&-autoprefixer!' +
+        //   'postcss-loader!' +
+        //   `less-loader?{"sourceMap":true,"modifyVars":${JSON.stringify(theme)}}`
+        // )
+        // use: ExtractTextPlugin.extract({
+        //   fallback: 'css-loader?sourceMap&-autoprefixer!' +
+        //   'postcss-loader!' +
+        //   `less-loader?{"sourceMap":true,"modifyVars":${JSON.stringify(theme)}}`
+        // })
         loader: ExtractTextPlugin.extract(
           `${require.resolve('css-loader')}?sourceMap&-autoprefixer!` +
           `${require.resolve('postcss-loader')}!` +
@@ -80,13 +121,24 @@ const webpackConfig = {
       }
     ]
   },
-  postcss() {
-    return [precss, autoprefixer];
-  },
+  // postcss() {
+  //   return [precss, autoprefixer];
+  // },
   plugins: [
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        postcss() {
+          return [precss, autoprefixer];
+        }
+      }
+    }),
     new webpack.HotModuleReplacementPlugin(),
-    new ExtractTextPlugin('[name].css'),
-    new webpack.NoErrorsPlugin(),
+    new ExtractTextPlugin({
+      filename: 'app.[hash].css',
+      disable: false,
+      allChunks: true
+    }),
+    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
