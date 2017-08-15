@@ -55,7 +55,7 @@ const webpackConfig = {
         test: /.jsx?$/,
         use: [
           {
-            loader: 'react-hot'
+            loader: 'react-hot-loader'
           },
           {
             loader: 'babel-loader'
@@ -108,7 +108,7 @@ const webpackConfig = {
       }
     }),
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'common',
+      names: 'common',
       filename: 'common.[hash].js',
       chunks: defaultSettings.chunks
     }),
