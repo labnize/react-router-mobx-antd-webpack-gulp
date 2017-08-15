@@ -66,11 +66,10 @@ const webpackConfig = {
       },
       {
         test: /\.css$/,
-        // loader: 'style!css!postcss',
+        // loader: 'style!css',
         use: [
           'style-loader',
-          'css-loader',
-          'postcss-loader'
+          'css-loader'
         ]
       },
       {
@@ -85,24 +84,20 @@ const webpackConfig = {
         //   {
         //     loader: ExtractTextPlugin.extract(
         //       'css-loader?sourceMap&-autoprefixer!' +
-        //       'postcss-loader!' +
         //       `less-loader?{"sourceMap":true,"modifyVars":${JSON.stringify(theme)}}`
         //     )
         //   }
         // ]
         // loader: ExtractTextPlugin.extract(
         //   'css-loader?sourceMap&-autoprefixer!' +
-        //   'postcss-loader!' +
         //   `less-loader?{"sourceMap":true,"modifyVars":${JSON.stringify(theme)}}`
         // )
         // use: ExtractTextPlugin.extract({
         //   fallback: 'css-loader?sourceMap&-autoprefixer!' +
-        //   'postcss-loader!' +
         //   `less-loader?{"sourceMap":true,"modifyVars":${JSON.stringify(theme)}}`
         // })
         loader: ExtractTextPlugin.extract(
           `${require.resolve('css-loader')}?sourceMap&-autoprefixer!` +
-          `${require.resolve('postcss-loader')}!` +
           `${require.resolve('less-loader')}?{"sourceMap":true,"modifyVars":${JSON.stringify(theme)}}`
         )
 
@@ -114,13 +109,6 @@ const webpackConfig = {
     ]
   },
   plugins: [
-    new webpack.LoaderOptionsPlugin({
-      options: {
-        postcss() {
-          return [precss, autoprefixer];
-        }
-      }
-    }),
     new webpack.HotModuleReplacementPlugin(),
     new ExtractTextPlugin({
       filename: 'app.[hash].css',

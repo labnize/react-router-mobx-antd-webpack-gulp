@@ -70,8 +70,7 @@ const webpackConfig = {
         test: /\.css$/,
         use: [
           'style-loader',
-          'css-loader',
-          'postcss-loader'
+          'css-loader'
         ]
       },
       {
@@ -84,21 +83,12 @@ const webpackConfig = {
         },
         loader: ExtractTextPlugin.extract(
           `${require.resolve('css-loader')}?sourceMap&-autoprefixer!` +
-          `${require.resolve('postcss-loader')}!` +
           `${require.resolve('less-loader')}?{"sourceMap":true,"modifyVars":${JSON.stringify(theme)}}`
         )
       }
     ]
   },
   plugins: [
-    new webpack.LoaderOptionsPlugin({
-      options: {
-        postcss() {
-          return [precss, autoprefixer];
-        }
-      }
-    }),
-    new webpack.optimize.DedupePlugin(), // JS库有自己的依赖树，并且这些库可能有交叉的依赖，DedupePlugin可以找出他们并删除重复的依赖
     // new webpack.optimize.OccurenceOrderPlugin(), // 为组件分配ID，通过这个插件webpack可以分析和优先考虑使用最多的模块，并为它们分配最小的ID
     new webpack.optimize.AggressiveMergingPlugin(),
     // definePlugin 接收字符串插入到代码当中, 所以你需要的话可以写上 JS 的字符串

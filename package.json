@@ -48,7 +48,6 @@
     "mobx-react-devtools": "^4.2.15",
     "mockjs": "^1.0.1-beta3",
     "open": "^0.0.5",
-    "postcss-loader": "^2.0.6",
     "precss": "^2.0.0",
     "progress-bar-webpack-plugin": "^1.10.0",
     "prop-types": "^15.5.10",
