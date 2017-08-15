@@ -118,6 +118,11 @@ const webpackConfig = {
           `${require.resolve('postcss-loader')}!` +
           `${require.resolve('less-loader')}?{"sourceMap":true,"modifyVars":${JSON.stringify(theme)}}`
         )
+
+        // loader: ExtractTextPlugin.extract(
+        //   `${require.resolve('css-loader')}?sourceMap&-autoprefixer!` +
+        //   `${require.resolve('less-loader')}?{"sourceMap":true,"modifyVars":${JSON.stringify(theme)}}`
+        // )
       }
     ]
   },

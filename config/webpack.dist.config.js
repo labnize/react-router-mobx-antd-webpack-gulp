@@ -89,15 +89,15 @@ const webpackConfig = {
         test(file) {
           return /\.less$/.test(file) && !/\.module\.less$/.test(file);
         },
-        use: [
-          {
-            loader: ExtractTextPlugin.extract(
-              'css-loader?sourceMap&-autoprefixer!' +
-              'postcss-loader!' +
-              `less-loader?{"sourceMap":true,"modifyVars":${JSON.stringify(theme)}}`
-            )
-          }
-        ]
+        // use: [
+        //   {
+        //     loader: ExtractTextPlugin.extract(
+        //       'css-loader?sourceMap&-autoprefixer!' +
+        //       'postcss-loader!' +
+        //       `less-loader?{"sourceMap":true,"modifyVars":${JSON.stringify(theme)}}`
+        //     )
+        //   }
+        // ]
         // loader: ExtractTextPlugin.extract(
         //   `${require.resolve('css-loader')}?sourceMap&-autoprefixer!` +
         //   `${require.resolve('postcss-loader')}!` +
