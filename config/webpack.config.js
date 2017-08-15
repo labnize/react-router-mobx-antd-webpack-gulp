@@ -76,20 +76,7 @@ const webpackConfig = {
       {
         test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg)$/,
         use: ['url-loader?limit=1&name=images/[name].[hash:8].[ext]']
-        // use: [
-        //   {
-        //     loader: 'url-loader',
-        //     options: {
-        //       limit: 1,
-        //       name: 'images/[name].[hash:8].[ext]'
-        //     }
-        //   }
-        // ]
       },
-      // {
-      //   test: /\.json$/,
-      //   loader: 'json-loader'
-      // },
       {
         test(file) {
           return /\.less$/.test(file) && !/\.module\.less$/.test(file);
@@ -126,9 +113,6 @@ const webpackConfig = {
       }
     ]
   },
-  // postcss() {
-  //   return [precss, autoprefixer];
-  // },
   plugins: [
     new webpack.LoaderOptionsPlugin({
       options: {

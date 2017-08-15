@@ -53,7 +53,6 @@ const webpackConfig = {
     rules: [
       {
         test: /.jsx?$/,
-        // loaders: ['react-hot', 'babel-loader', 'webpack-module-hot-accept'],
         use: [
           {
             loader: 'react-hot'
@@ -69,7 +68,6 @@ const webpackConfig = {
       },
       {
         test: /\.css$/,
-        // loader: 'style!css!postcss',
         use: [
           'style-loader',
           'css-loader',
@@ -78,37 +76,20 @@ const webpackConfig = {
       },
       {
         test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg)$/,
-        // loader: 'url-loader?limit=1&name=images/[name].[hash:8].[ext]',
         use: ['url-loader?limit=1&name=images/[name].[hash:8].[ext]']
       },
-      // {
-      //   test: /\.json$/,
-      //   loader: 'json-loader'
-      // },
       {
         test(file) {
           return /\.less$/.test(file) && !/\.module\.less$/.test(file);
         },
-        // use: [
-        //   {
-        //     loader: ExtractTextPlugin.extract(
-        //       'css-loader?sourceMap&-autoprefixer!' +
-        //       'postcss-loader!' +
-        //       `less-loader?{"sourceMap":true,"modifyVars":${JSON.stringify(theme)}}`
-        //     )
-        //   }
-        // ]
-        // loader: ExtractTextPlugin.extract(
-        //   `${require.resolve('css-loader')}?sourceMap&-autoprefixer!` +
-        //   `${require.resolve('postcss-loader')}!` +
-        //   `${require.resolve('less-loader')}?{"sourceMap":true,"modifyVars":${JSON.stringify(theme)}}`
-        // )
+        loader: ExtractTextPlugin.extract(
+          `${require.resolve('css-loader')}?sourceMap&-autoprefixer!` +
+          `${require.resolve('postcss-loader')}!` +
+          `${require.resolve('less-loader')}?{"sourceMap":true,"modifyVars":${JSON.stringify(theme)}}`
+        )
       }
     ]
   },
-  // postcss() {
-  //   return [precss, autoprefixer];
-  // },
   plugins: [
     new webpack.LoaderOptionsPlugin({
       options: {
@@ -131,7 +112,6 @@ const webpackConfig = {
       filename: 'common.[hash].js',
       chunks: defaultSettings.chunks
     }),
-    // new ExtractTextPlugin('app.[hash].css'),
     new ExtractTextPlugin({
       filename: 'app.[hash].css',
       disable: false,
