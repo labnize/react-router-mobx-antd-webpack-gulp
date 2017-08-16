@@ -85,7 +85,7 @@ const webpackConfig = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new ExtractTextPlugin('[name].css'),
+    new ExtractTextPlugin('style.[hash].css'),
     new webpack.NoErrorsPlugin(),
     new webpack.ProvidePlugin({
       $: 'jquery',

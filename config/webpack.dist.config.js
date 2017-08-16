@@ -98,7 +98,7 @@ const webpackConfig = {
       filename: 'common.[hash].js',
       chunks: defaultSettings.chunks
     }),
-    new ExtractTextPlugin('app.[hash].css'),
+    new ExtractTextPlugin('style.[hash].css'),
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: false,
       compress: {
