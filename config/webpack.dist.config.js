@@ -13,7 +13,6 @@ const pkg = fs.existsSync(pkgPath) ? require(pkgPath) : {};
 let theme = {};
 if (pkg.theme && typeof (pkg.theme) === 'string') {
   let cfgPath = pkg.theme;
-  // relative path
   if (cfgPath.charAt(0) === '.') {
     cfgPath = resolve(args.cwd, cfgPath);
   }
@@ -25,7 +24,7 @@ if (pkg.theme && typeof (pkg.theme) === 'string') {
 
 const webpackConfig = {
   entry: {
-    common: ['react', 'react-dom', 'jquery']
+    common: ['react', 'react-dom']
   },
   output: {
     path: filePath.build,
@@ -57,9 +56,6 @@ const webpackConfig = {
           },
           {
             loader: 'babel-loader'
-          },
-          {
-            loader: 'webpack-module-hot-accept'
           }
         ],
         exclude: /node_modules/
@@ -79,18 +75,14 @@ const webpackConfig = {
         test(file) {
           return /\.less$/.test(file) && !/\.module\.less$/.test(file);
         },
-        loader: ExtractTextPlugin.extract(
-          `${require.resolve('css-loader')}?sourceMap&-autoprefixer!` +
-          `${require.resolve('less-loader')}?{"sourceMap":true,"modifyVars":${JSON.stringify(theme)}}`
+        use: ExtractTextPlugin.extract(
+          'css-loader?sourceMap&-autoprefixer!' +
+          `less-loader?{"sourceMap":true,"modifyVars":${JSON.stringify(theme)}}`
         )
       }
     ]
   },
   plugins: [
-    // new webpack.optimize.DedupePlugin(), // JS库有自己的依赖树，并且这些库可能有交叉的依赖，DedupePlugin可以找出他们并删除重复的依赖
-    // new webpack.optimize.OccurenceOrderPlugin(), // 为组件分配ID，通过这个插件webpack可以分析和优先考虑使用最多的模块，并为它们分配最小的ID
-    new webpack.optimize.AggressiveMergingPlugin(),
-    // definePlugin 接收字符串插入到代码当中, 所以你需要的话可以写上 JS 的字符串
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production')
@@ -102,12 +94,11 @@ const webpackConfig = {
       chunks: defaultSettings.chunks
     }),
     new ExtractTextPlugin({
-      filename: 'style.[hash].css',
+      filename: 'styles.[hash].css',
       disable: false,
       allChunks: true
     }),
     new webpack.optimize.UglifyJsPlugin({
-      sourceMap: false,
       compress: {
         warnings: false
       },
@@ -117,6 +108,9 @@ const webpackConfig = {
       output: {
         comments: false
       }
+    }),
+    new webpack.LoaderOptionsPlugin({
+      minimize: true
     }),
     new webpack.NoEmitOnErrorsPlugin(),
     new ProgressBarPlugin({

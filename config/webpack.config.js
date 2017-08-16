@@ -12,7 +12,6 @@ const pkg = fs.existsSync(pkgPath) ? require(pkgPath) : {};
 let theme = {};
 if (pkg.theme && typeof (pkg.theme) === 'string') {
   let cfgPath = pkg.theme;
-  // relative path
   if (cfgPath.charAt(0) === '.') {
     cfgPath = resolve(args.cwd, cfgPath);
   }
@@ -54,9 +53,6 @@ const webpackConfig = {
           },
           {
             loader: 'babel-loader'
-          },
-          {
-            loader: 'webpack-module-hot-accept'
           }
         ],
         exclude: /node_modules/
@@ -76,18 +72,17 @@ const webpackConfig = {
         test(file) {
           return /\.less$/.test(file) && !/\.module\.less$/.test(file);
         },
-        loader: ExtractTextPlugin.extract(
-          `${require.resolve('css-loader')}?sourceMap&-autoprefixer!` +
-          `${require.resolve('less-loader')}?{"sourceMap":true,"modifyVars":${JSON.stringify(theme)}}`
+        use: ExtractTextPlugin.extract(
+          'css-loader?sourceMap&-autoprefixer!' +
+          `less-loader?{"sourceMap":true,"modifyVars":${JSON.stringify(theme)}}`
         )
-
       }
     ]
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new ExtractTextPlugin({
-      filename: 'style.[hash].css',
+      filename: 'styles.[hash].css',
       disable: false,
       allChunks: true
     }),

@@ -58,7 +58,6 @@
     "url-loader": "^0.5.9",
     "webpack": "^3.5.4",
     "webpack-dev-server": "^2.7.1",
-    "webpack-module-hot-accept": "^1.0.5",
     "webpack-stream": "^4.0.0"
   },
   "theme": {
