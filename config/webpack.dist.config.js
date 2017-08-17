@@ -1,8 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
-const defaultSettings = require('./defaults');
 
-const filePath = defaultSettings.filePath;
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
@@ -24,10 +22,11 @@ if (pkg.theme && typeof (pkg.theme) === 'string') {
 
 const webpackConfig = {
   entry: {
-    common: ['react', 'react-dom']
+    app: path.join(__dirname, '../src/main.jsx'),
+    vendors: ['react', 'react-dom', 'react-router', 'mobx']
   },
   output: {
-    path: filePath.build,
+    path: path.join(__dirname, '../build'),
     filename: '[name].[hash].js',
     publicPath: '/'
   },
@@ -89,9 +88,8 @@ const webpackConfig = {
       }
     }),
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'common',
-      filename: 'common.[hash].js',
-      chunks: defaultSettings.chunks
+      name: ['common', 'vendors'],
+      minChunks: 2
     }),
     new ExtractTextPlugin({
       filename: 'styles.[hash].css',
@@ -122,32 +120,18 @@ const webpackConfig = {
       $: 'jquery',
       jQuery: 'jquery',
       'window.jQuery': 'jquery'
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: path.resolve(__dirname, '../src/index.html'),
+      inject: true,
+      minify: {
+        removeAttributeQuotes: true,
+        removeComments: true,
+        removeEmptyAttributes: true
+      }
     })
   ]
 };
-
-function injectEntry() {
-  webpackConfig.entry.app = defaultSettings.pagesToPath().entry;
-}
-
-function injectHtmlWebpack() {
-  webpackConfig.plugins.push(
-    new HtmlWebpackPlugin({
-      filename: defaultSettings.pagesToPath().fln,
-      template: defaultSettings.pagesToPath().templates,
-      chunks: ['common', 'app'],
-      inject: true,
-      minify: {
-        removeComments: true,
-        collapseWhitespace: false
-      }
-    })
-  );
-}
-
-(function init() {
-  injectEntry();
-  injectHtmlWebpack();
-}());
 
 module.exports = webpackConfig;

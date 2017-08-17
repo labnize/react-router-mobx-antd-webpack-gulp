@@ -1,8 +1,5 @@
 const webpack = require('webpack');
 const path = require('path');
-const defaultSettings = require('./defaults');
-
-const filePath = defaultSettings.filePath;
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const fs = require('fs');
@@ -22,11 +19,13 @@ if (pkg.theme && typeof (pkg.theme) === 'string') {
 }
 
 const webpackConfig = {
-  entry: {},
+  entry: {
+    app: path.join(__dirname, '../src/main.jsx')
+  },
   output: {
-    path: filePath.build,
+    path: path.join(__dirname, '../build'),
     filename: '[name].js',
-    publicPath: filePath.publicPath
+    publicPath: '/'
   },
   cache: true,
   devtool: 'inline-source-map',
@@ -91,30 +90,13 @@ const webpackConfig = {
       $: 'jquery',
       jQuery: 'jquery',
       'window.jQuery': 'jquery'
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: path.resolve(__dirname, '../src/index.html'),
+      inject: true
     })
   ]
 };
-
-function injectEntry() {
-  webpackConfig.entry[defaultSettings.pagesToPath().name] = [
-    defaultSettings.pagesToPath().entry
-  ];
-}
-
-function injectHtmlWebpack() {
-  webpackConfig.plugins.push(
-    new HtmlWebpackPlugin({
-      filename: defaultSettings.pagesToPath().fln,
-      template: defaultSettings.pagesToPath().templates,
-      chunks: [defaultSettings.pagesToPath().name],
-      inject: true
-    })
-  );
-}
-
-(function init() {
-  injectEntry();
-  injectHtmlWebpack();
-}());
 
 module.exports = webpackConfig;
