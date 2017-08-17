@@ -14,7 +14,7 @@ class PageComponent extends Component {
     if (this.props.param && this.props.param.length) {
       this.initLines();
     }
-    window.onresize = this.resizeLines;
+    $(window).on('resize', this.resizePie);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -24,6 +24,10 @@ class PageComponent extends Component {
         this.initLines();
       }
     }
+  }
+
+  componentWillUnmount() {
+    $(window).off('resize');
   }
 
   resizeLines() {

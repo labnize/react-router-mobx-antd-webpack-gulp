@@ -5,7 +5,7 @@ import Layout from 'components/layout2/layout2';
 import Echartstore from 'store/echartstore';
 import Lines from './line';
 import Pie from './pie';
-import './item.less';
+import './item2.less';
 
 
 const TabPane = Tabs.TabPane;
