@@ -10,6 +10,7 @@ import './item3.less';
 const store = new Positionstore();
 const url = 'claa/positionlist';
 const nn6 = document.getElementById && !document.all;
+let oDiv;
 let orign = 1;
 let oDragObj;
 let isdrag = false;
@@ -65,7 +66,7 @@ class PageComponent extends Component {
       y = nn6 ? e.clientY : event.clientY;
       nTX = parseInt(oDragObj.style.left + 0, 10);
       x = nn6 ? e.clientX : event.clientX;
-      document.onmousemove = PageComponent.moveMouse;
+      $(document).on('mousemove', PageComponent.moveMouse);
       return false;
     }
     return true;
@@ -118,7 +119,7 @@ class PageComponent extends Component {
     PageComponent.imgScale(false);
   }
 
-  /* 以下是为了兼容切换到手机模式的拖拽事件*/
+  /* 以下是为了兼容切换到手机模式的拖拽事件 */
   static initTouchDrag(e) {
     let oDragHandle = nn6 ? e.target : event.srcElement;
     const topElement = 'HTML';
@@ -132,7 +133,7 @@ class PageComponent extends Component {
       y = nn6 ? e.touches[0].clientY : event.touches[0].clientY;
       nTX = parseInt(oDragObj.style.left + 0, 10);
       x = nn6 ? e.touches[0].clientX : event.touches[0].clientX;
-      document.addEventListener('touchmove', PageComponent.touchmoveMouse);
+      oDiv.addEventListener('touchmove', PageComponent.touchmoveMouse);
       return false;
     }
     return true;
@@ -144,9 +145,10 @@ class PageComponent extends Component {
     oDragObj.style.left = `${nn6 ? nTX + e.touches[0].clientX - x : nTX + event.touches[0].clientX - x}px`;
     return false;
   }
-  /* 以上是为了兼容切换到手机模式的拖拽事件*/
+  /* 以上是为了兼容切换到手机模式的拖拽事件 */
 
   componentDidMount() {
+    oDiv = document.getElementById('imgWrap');
     const picDiv = $('#picDiv');
     let layoutHeight = $(window).height() - 157;
     let picHeight = `${layoutHeight - 91.5}px`;
@@ -157,10 +159,17 @@ class PageComponent extends Component {
       picDiv.css('height', picHeight);
     });
     PageComponent.doQuery();
-    document.onmousedown = PageComponent.initDrag;
-    document.onmouseup = PageComponent.offDrag;
-    document.addEventListener('touchstart', PageComponent.initTouchDrag);
-    document.ontouchend = PageComponent.offDrag;
+    oDiv.addEventListener('touchstart', PageComponent.initTouchDrag);
+    oDiv.ontouchend = PageComponent.offDrag;
+
+    $(document).on('mousedown', PageComponent.initDrag);
+    $(document).on('mouseup', PageComponent.offDrag);
+  }
+
+  componentWillUnmount() {
+    $(document).off('mousedown');
+    $(document).off('mouseup');
+    $(document).off('mousemove');
   }
 
 
