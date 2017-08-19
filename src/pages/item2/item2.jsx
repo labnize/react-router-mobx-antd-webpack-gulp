@@ -15,16 +15,7 @@ const store = new Echartstore();
 
 @observer
 class PageComponent extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  componentDidMount() {
-    this.doQueryLine();
-    this.doQueryPie();
-  }
-
-  doQueryLine() {
+  static doQueryLine() {
     const param = {
       loadingFlag: true,
       url: urlLine,
@@ -34,7 +25,7 @@ class PageComponent extends Component {
     store.fetchData(param);
   }
 
-  doQueryPie() {
+  static doQueryPie() {
     const param = {
       loadingFlag: true,
       url: urlPie,
@@ -42,6 +33,14 @@ class PageComponent extends Component {
       data: {}
     };
     store.fetchPieData(param);
+  }
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    PageComponent.doQueryLine();
+    PageComponent.doQueryPie();
   }
 
   render() {
