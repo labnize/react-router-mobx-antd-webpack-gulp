@@ -5,16 +5,16 @@ import PropTypes from 'prop-types';
 let pieChart = echarts;
 
 class PageComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.resizePie = this.resizePie.bind(this);
+  static resizePie() {
+    const pieInstance = echarts.getInstanceByDom(document.getElementById('pieChart'));
+    pieInstance.resize();
   }
   componentDidMount() {
     pieChart = echarts.init(document.getElementById('pieChart'));
     if (this.props.param && this.props.param.length) {
       this.initPie();
     }
-    $(window).on('resize', this.resizePie);
+    $(window).on('resize', PageComponent.resizePie);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -28,14 +28,6 @@ class PageComponent extends Component {
 
   componentWillUnmount() {
     $(window).off('resize');
-  }
-
-  resizePie() {
-    pieChart.dispose();
-    pieChart = echarts.init(document.getElementById('pieChart'));
-    if (this.props.param && this.props.param.length) {
-      this.initPie();
-    }
   }
 
   initPie() {
