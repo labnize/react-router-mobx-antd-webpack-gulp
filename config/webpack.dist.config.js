@@ -24,8 +24,7 @@ if (pkg.theme && typeof (pkg.theme) === 'string') {
 const webpackConfig = {
   entry: {
     app: path.join(__dirname, '../src/main.jsx'),
-    app1: path.join(__dirname, '../src/main1.jsx'),
-    vendor: ['react', 'react-dom']
+    vendor: ['react', 'react-dom', 'react-router', 'mobx', 'mobx-react', 'jquery', 'echarts', 'mockjs']
   },
   output: {
     path: path.join(__dirname, '../build'),
@@ -92,17 +91,9 @@ const webpackConfig = {
     }),
     new webpack.HashedModuleIdsPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
-      name: ['common', 'vendor'],
+      name: ['vendor', 'common'],
       minChunks: 2
     }),
-    // new webpack.optimize.CommonsChunkPlugin({
-    //   name: 'vendor',
-    //   minChunks: 2
-    // }),
-    // new webpack.optimize.CommonsChunkPlugin({
-    //   name: 'common',
-    //   minChunks: 2
-    // }),
     new ExtractTextPlugin({
       filename: 'styles.[hash].css',
       disable: false,
