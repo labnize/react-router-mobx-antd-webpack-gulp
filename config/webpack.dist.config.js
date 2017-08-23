@@ -23,7 +23,7 @@ if (pkg.theme && typeof (pkg.theme) === 'string') {
 const webpackConfig = {
   entry: {
     app: path.join(__dirname, '../src/main.jsx'),
-    vendor: ['react', 'react-dom', 'react-router', 'mobx']
+    vendor: ['react', 'react-dom', 'react-router', 'mobx', 'jquery']
   },
   output: {
     path: path.join(__dirname, '../build'),
