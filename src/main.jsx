@@ -7,7 +7,6 @@ import item1 from 'pages/item1/item1';
 import item2 from 'pages/item2/item2';
 import item3 from 'pages/item3/item3';
 import item4 from 'pages/item4/item4';
-import './tets1';
 
 function App(props) {
   return (
