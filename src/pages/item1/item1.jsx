@@ -193,9 +193,6 @@ class PageComponent extends Component {
     return (
       <Layout name="item1" >
         <div className="item1" >
-          <div className="tabLine">
-            <Pie />
-          </div>
           <div className="search" >
             <Search
               placeholder="用户名"
