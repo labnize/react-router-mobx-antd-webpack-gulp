@@ -95,7 +95,7 @@ const webpackConfig = {
       minChunks: 2
     }),
     new ExtractTextPlugin({
-      filename: 'styles.[chunkhash].css',
+      filename: 'styles.[contenthash].css',
       disable: false,
       allChunks: true
     }),
@@ -131,7 +131,8 @@ const webpackConfig = {
       minify: {
         removeAttributeQuotes: true,
         removeComments: true,
-        removeEmptyAttributes: true
+        removeEmptyAttributes: true,
+        collapseWhitespace: true
       }
     })
   ]
