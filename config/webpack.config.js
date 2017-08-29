@@ -81,7 +81,7 @@ const webpackConfig = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new ExtractTextPlugin({
-      filename: 'styles.[hash].css',
+      filename: 'styles.[contenthash].css',
       disable: false,
       allChunks: true
     }),
