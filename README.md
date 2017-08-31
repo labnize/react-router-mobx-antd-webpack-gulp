@@ -41,7 +41,13 @@ npm install
 ## 调试
 
 Just run "gulp" in this root folder
+```
+gulp
+```
 
 ## 打包
 
 Just run "gulp build" in this root folder
+```
+gulp build
+```
