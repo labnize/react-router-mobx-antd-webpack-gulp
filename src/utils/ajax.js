@@ -3,14 +3,12 @@ import 'util/mockdata';
 
 export default class AJAX {
   static localData = require('util/localdata');
-  static config = require('util/config.json');
-
-  static isDebug() {
-    return true;
-  }
 
   static getEnvPrefix() {
-    return AJAX.config[AJAX.config.current];
+    if (window.isDebug) {
+      return '';
+    }
+    return window.apiUrl;
   }
 
   static fetch(fetchObj) {
@@ -31,7 +29,7 @@ export default class AJAX {
       });
     }
 
-    if (AJAX.isDebug()) {
+    if (window.isDebug) {
       setTimeout(() => {
         if (loadingFlag) {
           modal.closeModel();

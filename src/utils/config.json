@@ -1,9 +1,0 @@
-{
-  "current": "mock",
-  "local": "http://{{Complete the Url}}/",
-  "mock": "http://",
-  "dev": "http://{{Complete the Url}}/",
-  "test": "http://{{Complete the Url}}/",
-  "release": "http://{{Complete the Url}}/",
-  "master": "http://{{Complete the Url}}/"
-}
