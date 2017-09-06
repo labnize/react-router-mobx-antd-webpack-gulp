@@ -73,7 +73,7 @@ const webpackConfig = {
     new ExtractTextPlugin({
       filename: 'styles.[contenthash].css',
       disable: false,
-      allChunks: true
+      allChunks: false
     }),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.ProvidePlugin({
