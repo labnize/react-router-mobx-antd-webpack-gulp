@@ -43,7 +43,7 @@ export default class AJAX {
         } else {
           AJAX.modalError(localData);// TODO ajax错误统一处理
         }
-      }, 500);
+      }, 5000);
       return;
     }
 
