@@ -15,7 +15,7 @@ class PageComponent extends Component {
     this.eventListener = this.eventListener.bind(this);
     this.defaultOptions = {
       type: '',
-      message: '',
+      errorMessage: '',
       title: ''
     };
   }
@@ -73,7 +73,7 @@ class PageComponent extends Component {
         >
           <Alert
             className="noti-alert"
-            message={options.message}
+            message={options.errorMessage}
             type="success"
             showIcon
           />
@@ -92,7 +92,7 @@ class PageComponent extends Component {
         >
           <Alert
             className="noti-alert"
-            message={options.message}
+            message={options.errorMessage}
             // description="This is an error message about copywriting."
             type="error"
             showIcon
