@@ -36,6 +36,7 @@ class PageComponent extends Component {
               zoom={15}
               zooms={[15, 20]}
               expandZoomRange
+              resizeEnable
             >
               <GroundImage
                 bounds={bounds}
