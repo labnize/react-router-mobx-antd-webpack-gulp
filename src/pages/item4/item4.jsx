@@ -1,9 +1,24 @@
 import React, { Component } from 'react';
 import Layout from 'components/layout2/layout2';
-import { Input } from 'antd';
+import { Map, GroundImage } from 'react-amap';
+import srcImg from 'images/dongwuyuan.jpg';
 import './item4.less';
 
-const Search = Input.Search;
+const bounds = {
+  sw: {
+    longitude: 116.327911,
+    latitude: 39.939229
+  },
+  ne: {
+    longitude: 116.342659,
+    latitude: 39.946275
+  }
+};
+
+const center = {
+  longitude: 116.33719,
+  latitude: 39.942384
+};
 
 class PageComponent extends Component {
   constructor(props) {
@@ -14,12 +29,19 @@ class PageComponent extends Component {
     return (
       <Layout name="item4">
         <div className="item4">
-          <div className="search">
-            <Search
-              placeholder="用户名"
-              style={{ width: 200 }}
-              onSearch={value =>console.log(value)}
-            />
+          <div id="container">
+            <Map
+              plugins={['ToolBar']}
+              center={center}
+              zoom={15}
+              zooms={[15, 20]}
+              expandZoomRange
+            >
+              <GroundImage
+                bounds={bounds}
+                src={srcImg}
+              />
+            </Map>
           </div>
         </div>
       </Layout>
