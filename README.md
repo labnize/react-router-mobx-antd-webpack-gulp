@@ -12,6 +12,7 @@
 - Mock.js (模拟数据服务)
 - Babel (ES6/7代码转译浏览器可执行)
 - Webpack (打包工具)
+- React Amap (高德地图)
 
 ## 目录结构
 
