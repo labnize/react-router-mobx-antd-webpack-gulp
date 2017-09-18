@@ -34,9 +34,6 @@ class PageComponent extends Component {
     };
     store.fetchPieData(param);
   }
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
     PageComponent.doQueryLine();
