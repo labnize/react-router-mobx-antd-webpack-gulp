@@ -16,13 +16,15 @@ class PageComponent extends Component {
         position: {
           longitude: 116.333124,
           latitude: 39.941849
-        }
+        },
+        id: '1'
       },
       {
         position: {
           longitude: 116.340934,
           latitude: 39.944794
-        }
+        },
+        id: '2'
       }
     ];
     this.bounds = {
