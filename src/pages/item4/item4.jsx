@@ -38,6 +38,11 @@ class PageComponent extends Component {
       }
     };
   }
+  markersEvents = { click(e, marker) {
+    const extData = marker.getExtData();
+    const deveui = extData.deveui;
+    console.log(deveui);
+  } };
 
   render() {
     return (
@@ -54,6 +59,7 @@ class PageComponent extends Component {
             >
               <Markers
                 markers={this.markers}
+                events={this.markersEvents}
               />
               <GroundImage
                 bounds={this.bounds}
