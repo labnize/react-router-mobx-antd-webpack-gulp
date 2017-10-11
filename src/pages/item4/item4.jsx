@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Layout from 'components/layout2/layout2';
-import { Map, GroundImage, Markers } from 'react-amap';
+import { Map, GroundImage, Markers, Marker } from 'react-amap';
 import srcImg from 'images/dongwuyuan.jpg';
 import './item4.less';
 
