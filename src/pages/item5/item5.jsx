@@ -37,6 +37,12 @@ class PageComponent extends Component {
     const options = {
       interaction: {
         hover: true
+      },
+      physics: {
+        barnesHut: {
+          damping: 0.5,
+          avoidOverlap: 0.5
+        }
       }
     };
     const network = new Network(container, data, options);
