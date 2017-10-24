@@ -35,6 +35,7 @@ class PageComponent extends Component {
   render() {
     const { children, name } = this.props;
     const menuList = menus.list;
+    const defaultKey = location.pathname.split('/')[1] ? location.pathname.split('/')[1] : 'item1';
     // const menuList = menuStore.list;  //菜单通过接口获得
     // const { menuList } = this.state;
     // const firstKey = menuList.list[0].key;
@@ -48,7 +49,7 @@ class PageComponent extends Component {
           }}
         >
           <div className="logo" />
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={[name]} onSelect={this.handleMenuClick} >
+          <Menu theme="dark" mode="inline" defaultSelectedKeys={[defaultKey]} onSelect={this.handleMenuClick} >
             {menuList ? menuList.map(item => (
               <Menu.Item key={item.key} >
                 <Icon type="user" />
