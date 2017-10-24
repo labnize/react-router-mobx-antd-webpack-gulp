@@ -60,5 +60,8 @@
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-server": "^2.7.1",
     "webpack-stream": "^4.0.0"
+  },
+  "dependencies": {
+    "vis": "^4.21.0"
   }
 }
