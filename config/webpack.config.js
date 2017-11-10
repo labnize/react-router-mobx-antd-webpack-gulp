@@ -33,12 +33,8 @@ const webpackConfig = {
       {
         test: /.jsx?$/,
         use: [
-          {
-            loader: 'react-hot-loader'
-          },
-          {
-            loader: 'babel-loader'
-          }
+          'react-hot-loader/webpack',
+          'babel-loader'
         ],
         exclude: /node_modules/
       },

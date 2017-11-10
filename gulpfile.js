@@ -16,8 +16,9 @@ gulp.task('dev', () => {
     hot: true,
     noInfo: false,
     publicPath: '/',
-    stats: { colors: true }
-  }).listen(8090, (err) => {
+    stats: { colors: true },
+    host: 'localhost'
+  }).listen(8090, 'localhost', () => {
     console.log('http://127.0.0.1:8090');
     console.log('Opening your system browser...');
     open('http://127.0.0.1:8090');
