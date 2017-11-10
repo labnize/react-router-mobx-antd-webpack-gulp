@@ -13,7 +13,7 @@
 - Babel (ES6/7代码转译浏览器可执行)
 - Webpack (打包工具)
 - React Amap (高德地图)
-- Vis (拓扑图)
+- Visjs (拓扑图)
 
 ## 目录结构
 
