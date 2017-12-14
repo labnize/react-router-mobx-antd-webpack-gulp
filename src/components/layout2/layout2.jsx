@@ -17,14 +17,6 @@ class PageComponent extends Component {
   }
 
   componentDidMount() {
-    const layout = $('.content-layout');
-    let height = `${$(window).height() - 157}px`;
-    layout.css('height', height);
-    $(window).resize(() => {
-      height = `${$(window).height() - 157}px`;
-      layout.css('height', height);
-    });
-    // menuStore.fetchData();
   }
 
   handleMenuClick({ item, key, selectedKeys }) {
@@ -40,7 +32,7 @@ class PageComponent extends Component {
     // const { menuList } = this.state;
     // const firstKey = menuList.list[0].key;
     return (
-      <Layout className="layout" >
+      <Layout style={{ minHeight: '100vh' }} className="layout" >
         <Sider
           breakpoint="lg"
           collapsedWidth="0"
