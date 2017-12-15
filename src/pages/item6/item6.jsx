@@ -42,7 +42,6 @@ class PageComponent extends Component {
   }
   socketError(error) {
     alert('CONNECTION ERROR!');
-    this.socket = null;
   }
   render() {
     return (
