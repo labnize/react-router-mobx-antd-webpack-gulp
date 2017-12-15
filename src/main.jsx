@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import zhCN from 'antd/lib/locale-provider/zh_CN';
+import { LocaleProvider } from 'antd';
 
 import item1 from 'pages/item1/item1';
 import item2 from 'pages/item2/item2';
@@ -12,9 +14,11 @@ import item6 from 'pages/item6/item6';
 
 function App(props) {
   return (
-    <div>
-      {props.children}
-    </div>
+    <LocaleProvider locale={zhCN}>
+      <div>
+        {props.children}
+      </div>
+    </LocaleProvider>
   );
 }
 
