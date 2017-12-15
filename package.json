@@ -16,7 +16,7 @@
   "author": "zhuli",
   "license": "MIT",
   "devDependencies": {
-    "antd": "^2.13.9",
+    "antd": "^3.0.1",
     "autoprefixer": "^7.1.6",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.2",
