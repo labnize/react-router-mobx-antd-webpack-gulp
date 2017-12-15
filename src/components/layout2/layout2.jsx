@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { browserHistory } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { Layout, Menu, Icon } from 'antd';
 import MenuStore from 'store/menustore';
@@ -7,7 +7,9 @@ import { observer } from 'mobx-react';
 import menus from 'localData/menulist2.json';
 import './layout2.less';
 
-const { Header, Content, Footer, Sider } = Layout;
+const {
+  Header, Content, Footer, Sider
+} = Layout;
 const menuStore = new MenuStore();
 
 @observer
@@ -21,7 +23,7 @@ class PageComponent extends Component {
 
   handleMenuClick({ item, key, selectedKeys }) {
     console.log(key);
-    browserHistory.push(`/${key}`);
+    // browserHistory.push(`/${key}`);
   }
 
   render() {
@@ -43,12 +45,14 @@ class PageComponent extends Component {
           <div className="logo" />
           <Menu theme="dark" mode="inline" defaultSelectedKeys={[defaultKey]} onSelect={this.handleMenuClick} >
             {menuList ? menuList.map(item => (
+
               <Menu.Item key={item.key} >
-                <Icon type="user" />
-                <span className="nav-text" >{item.name}</span >
+                <Link to={`/${item.key}`}>
+                  <Icon type="user" />
+                  <span className="nav-text" >{item.name}</span >
+                </Link>
               </Menu.Item >
-              )
-            ) : ''}
+              )) : ''}
           </Menu >
         </Sider >
         <Layout >
