@@ -1,5 +1,5 @@
 {
-  "name": "zte-react-frame",
+  "name": "frame",
   "version": "0.0.1",
   "description": "React Antd demo",
   "main": "index.html",
@@ -53,7 +53,7 @@
     "react-amap": "^1.0.3",
     "react-dom": "^16.1.0",
     "react-hot-loader": "^3.1.2",
-    "react-router": "^3.0.5",
+    "react-router-dom": "^4.2.2",
     "reconnectingwebsocket": "^1.0.0",
     "style-loader": "^0.19.0",
     "url-loader": "^0.6.2",
