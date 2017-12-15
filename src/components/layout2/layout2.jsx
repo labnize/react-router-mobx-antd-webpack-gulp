@@ -59,7 +59,7 @@ class PageComponent extends Component {
             </div >
           </Content >
           <Footer style={{ textAlign: 'center' }} >
-            July Design ©2016 Created by July
+            July Design ©2017 Created by July
           </Footer >
         </Layout >
       </Layout >
