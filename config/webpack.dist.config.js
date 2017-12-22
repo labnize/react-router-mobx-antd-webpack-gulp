@@ -10,7 +10,7 @@ const theme = require('./antd.theme');
 const webpackConfig = {
   entry: {
     app: path.join(__dirname, '../src/index.jsx'),
-    vendor: ['react', 'react-dom', 'react-router', 'mobx', 'mobx-react', 'jquery', 'echarts', 'mockjs', 'antd']
+    vendor: ['react', 'react-dom', 'react-router-dom', 'mobx', 'mobx-react', 'jquery', 'echarts', 'mockjs', 'antd', 'vis']
   },
   output: {
     path: path.join(__dirname, '../build'),

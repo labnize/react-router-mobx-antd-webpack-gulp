@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import Layout from 'components/layout2/layout2';
-import DataSet from 'vis/lib/DataSet';
-import Network from 'vis/lib/network/Network';
+import vis from 'vis';
 import nodeImage from 'images/computer.png';
 import './item5.less';
 
 class PageComponent extends Component {
   componentDidMount() {
     const container = document.getElementById('mynetwork');
-    const nodes = new DataSet([
+    const nodes = new vis.DataSet([
       {
         id: 1, label: '网关1', shape: 'image', image: `${nodeImage}`
       },
@@ -25,7 +24,7 @@ class PageComponent extends Component {
         id: 5, label: '网关5', shape: 'image', image: `${nodeImage}`
       }
     ]);
-    const edges = new DataSet([
+    const edges = new vis.DataSet([
       { from: 1, to: 3, dashes: true },
       {
         from: 1,
@@ -56,7 +55,7 @@ class PageComponent extends Component {
         }
       }
     };
-    const network = new Network(container, data, options);
+    const network = new vis.Network(container, data, options);
   }
   render() {
     return (
