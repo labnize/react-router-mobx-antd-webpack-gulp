@@ -9,7 +9,7 @@ const theme = require('./antd.theme');
 
 const webpackConfig = {
   entry: {
-    app: path.join(__dirname, '../src/index.jsx'),
+    app: path.join(__dirname, '../src/index.js'),
     vendor: ['react', 'react-dom', 'react-router-dom', 'mobx', 'mobx-react', 'jquery', 'echarts', 'mockjs', 'antd', 'vis']
   },
   output: {

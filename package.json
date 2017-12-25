@@ -62,5 +62,8 @@
     "webpack-bundle-analyzer": "^2.9.1",
     "webpack-dev-server": "^2.9.4",
     "webpack-stream": "^4.0.0"
+  },
+  "dependencies": {
+    "gojs": "^1.8.6"
   }
 }

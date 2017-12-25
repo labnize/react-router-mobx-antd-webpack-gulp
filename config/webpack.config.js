@@ -6,7 +6,7 @@ const theme = require('./antd.theme');
 
 const webpackConfig = {
   entry: {
-    app: path.join(__dirname, '../src/index.jsx')
+    app: path.join(__dirname, '../src/index.js')
   },
   output: {
     path: path.join(__dirname, '../build'),
