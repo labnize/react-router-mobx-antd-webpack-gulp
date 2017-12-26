@@ -16,7 +16,7 @@ class PageComponent extends Component {
     const graygrad = $(go.Brush, 'Linear', { 0: '#F5F5F5', 1: '#F1F1F1' });
     const bluegrad = $(go.Brush, 'Linear', { 0: '#CDDAF0', 1: '#91ADDD' });
     const yellowgrad = $(go.Brush, 'Linear', { 0: '#FEC901', 1: '#FEA200' });
-    const lavgrad = $(go.Brush, 'Linear', { 0: '#EF9EFA', 1: '#A570AD' });
+    const lavgrad = $(go.Brush, 'Linear', { 0: '#ffffff', 1: '#ffffff' });
 
     // define the Node template for non-terminal nodes
     myDiagram.nodeTemplate =
@@ -50,7 +50,7 @@ class PageComponent extends Component {
       // these node data are indented but not nested according to the depth in the tree
       { key: 'Root', color: lavgrad },
       {
-        key: 'Left1', parent: 'Root', dir: 'left', color: bluegrad
+        key: 'Left1', parent: 'Right1', dir: 'left', color: bluegrad
       },
       { key: 'leaf1', parent: 'Left1' },
       { key: 'leaf2', parent: 'Left1' },
@@ -58,7 +58,7 @@ class PageComponent extends Component {
       { key: 'leaf3', parent: 'Left2' },
       { key: 'leaf4', parent: 'Left2' },
       {
-        key: 'Right1', parent: 'Root', dir: 'right', color: yellowgrad
+        key: 'Right1', parent: 'Right1', dir: 'right', color: yellowgrad
       },
       { key: 'Right2', parent: 'Right1', color: yellowgrad },
       { key: 'leaf5', parent: 'Right2' },
@@ -109,7 +109,7 @@ class PageComponent extends Component {
     diagram.commitTransaction('Double Tree Layout');
   }
   separatePartsByLayout(diagram, leftParts, rightParts) {
-    const root = diagram.findNodeForKey('Root');
+    const root = diagram.findNodeForKey('Right1');
     if (root === null) return;
     // the ROOT node is shared by both subtrees!
     leftParts.add(root);
