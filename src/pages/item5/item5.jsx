@@ -9,19 +9,19 @@ class PageComponent extends Component {
     const container = document.getElementById('mynetwork');
     const nodes = new vis.DataSet([
       {
-        id: 1, label: '网关1', shape: 'image', image: `${nodeImage}`
+        id: 1, label: '网关1', shape: 'image', image: `${nodeImage}`, x: 400, y: 500
       },
       {
-        id: 2, label: '网关2', shape: 'image', image: `${nodeImage}`
+        id: 2, label: '网关2', shape: 'image', image: `${nodeImage}`, x: 300, y: 400
       },
       {
-        id: 3, label: '网关3', shape: 'image', image: `${nodeImage}`
+        id: 3, label: '网关3', shape: 'image', image: `${nodeImage}`, x: 200, y: 300
       },
       {
-        id: 4, label: '网关4', shape: 'image', image: `${nodeImage}`
+        id: 4, label: '网关4', shape: 'image', image: `${nodeImage}`, x: 100, y: 200
       },
       {
-        id: 5, label: '网关5', shape: 'image', image: `${nodeImage}`
+        id: 5, label: '网关5', shape: 'image', image: `${nodeImage}`, x: 100, y: 100
       }
     ]);
     const edges = new vis.DataSet([
@@ -48,12 +48,7 @@ class PageComponent extends Component {
       interaction: {
         hover: true
       },
-      physics: {
-        barnesHut: {
-          damping: 0.5,
-          avoidOverlap: 0.5
-        }
-      }
+      physics: false
     };
     const network = new vis.Network(container, data, options);
   }
