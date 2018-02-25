@@ -24,6 +24,7 @@ const webpackConfig = {
     alias: {
       components: path.join(__dirname, '../src/components'),
       images: path.join(__dirname, '../res/images'),
+      media: path.join(__dirname, '../res/media'),
       pages: path.join(__dirname, '../src/pages'),
       localData: path.join(__dirname, '../src/testdata/localdata'),
       mockData: path.join(__dirname, '../src/testdata/mockdata'),
@@ -62,13 +63,15 @@ const webpackConfig = {
         use: ['url-loader?limit=1&name=iconfont/[name].[hash:8].[ext]']
       },
       {
+        test: /\.mp3$/,
+        use: ['file-loader?name=media/[name].[hash:8].[ext]']
+      },
+      {
         test(file) {
           return /\.less$/.test(file) && !/\.module\.less$/.test(file);
         },
-        use: ExtractTextPlugin.extract(
-          'css-loader?sourceMap&-autoprefixer!' +
-          `less-loader?{"sourceMap":true,"modifyVars":${JSON.stringify(theme)}}`
-        )
+        use: ExtractTextPlugin.extract('css-loader?sourceMap&-autoprefixer!' +
+          `less-loader?{"sourceMap":true,"modifyVars":${JSON.stringify(theme)}}`)
       }
     ]
   },
@@ -94,7 +97,7 @@ const webpackConfig = {
         warnings: false
       },
       mangle: {
-        except: ['$super', '$', 'exports', 'require']  // 以上变量‘$super’, ‘$’, ‘exports’ or ‘require’，不会被混淆
+        except: ['$super', '$', 'exports', 'require'] // 以上变量‘$super’, ‘$’, ‘exports’ or ‘require’，不会被混淆
       },
       output: {
         comments: false
