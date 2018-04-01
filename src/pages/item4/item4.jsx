@@ -1,15 +1,31 @@
 import React, { Component } from 'react';
 import Layout from 'components/layout2/layout2';
-import { Map, GroundImage, Markers, Marker } from 'react-amap';
+import { Map, GroundImage, Markers, Marker, Circle } from 'react-amap';
 import srcImg from 'images/dongwuyuan.jpg';
 import './item4.less';
+
 
 class PageComponent extends Component {
   constructor(props) {
     super(props);
     this.center = {
-      longitude: 116.33719,
-      latitude: 39.942384
+      longitude: 118.642807,
+      latitude: 32.036538
+    };
+    this.currentPosition = {
+      longitude: 116.397477,
+      latitude: 39.908692
+    };
+    this.state = {
+      radius: 600,
+      visible: true,
+      style: { strokeColor: '#f00' },
+      draggable: true
+    };
+    this.circleEvents = {
+      created: (ins) => { console.log(window.circle = ins); },
+      click: () => { console.log('clicked'); },
+      mouseover: () => { console.log('mouseover'); }
     };
     this.markers = [
       {
@@ -38,11 +54,25 @@ class PageComponent extends Component {
       }
     };
   }
-  markersEvents = { click(e, marker) {
-    const extData = marker.getExtData();
-    const deveui = extData.deveui;
-    console.log(deveui);
-  } };
+  componentDidMount() {
+    // 调用高德地图原生LngLat类，使用distance方法，但需等高德地图加载完成
+    setTimeout(() => {
+      console.log(this.calculate(
+        new window.AMap.LngLat(118.642807, 32.036538),
+        new window.AMap.LngLat(116.397477, 39.908692)
+      ));
+    }, 2000);
+  }
+  markersEvents = {
+    click(e, marker) {
+      const extData = marker.getExtData();
+      const deveui = extData.deveui;
+      console.log(deveui);
+    }
+  };
+  calculate(lnglat1, lnglat2) {
+    return Math.round(lnglat1.distance(lnglat2));
+  }
 
   render() {
     return (
@@ -64,6 +94,14 @@ class PageComponent extends Component {
               <GroundImage
                 bounds={this.bounds}
                 src={srcImg}
+              />
+              <Circle
+                center={this.center}
+                radius={this.state.radius}
+                events={this.circleEvents}
+                visible={this.state.visible}
+                style={this.state.style}
+                draggable={this.state.draggable}
               />
             </Map>
           </div>
