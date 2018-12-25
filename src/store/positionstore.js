@@ -6,7 +6,7 @@ export default class Echartstore {
     list: []
   };
 
-  fetchData(param) {
+  fetchDataPosition(param) {
     const that = this;
     const params = {
       successFn(data) {

@@ -28,7 +28,7 @@ class PageComponent extends Component {
       method: 'GET',
       data: {}
     };
-    store.fetchData(param);
+    store.fetchDataPosition(param);
   }
 
   // 获取div的四个顶点坐标
@@ -193,9 +193,10 @@ class PageComponent extends Component {
                     id={`pin-img${value.id}`}
                     src={imgPin}
                     alt=""
-                    style={{ left: `${value.left}px`, top: `${value.top}px`, width: '35px', position: 'absolute' }}
-                  />)
-                ) : ''}
+                    style={{
+ left: `${value.left}px`, top: `${value.top}px`, width: '35px', position: 'absolute' 
+}}
+                  />)) : ''}
                 <img className="pos-bg-img" src={imgPosition} alt="" />
               </div>
             </div>
