@@ -12,6 +12,40 @@ import './item1.less';
 const Search = Input.Search;
 const store = new Tablestore();
 const url = 'claa/tablelist';
+const columns = [{
+  title: '用户名',
+  dataIndex: 'username',
+  key: 'username',
+  render: text => <a>{text}</a >
+}, {
+  title: '角色名',
+  dataIndex: 'rolename',
+  key: 'rolename'
+}, {
+  title: '归属组织',
+  dataIndex: 'belongOrg',
+  key: 'belongOrg'
+}, {
+  title: '归属用户',
+  dataIndex: 'belongUser',
+  key: 'belongUser'
+}, {
+  title: '创建时间',
+  dataIndex: 'createTime',
+  key: 'createTime',
+  sorter: true
+}, {
+  title: '操作',
+  dataIndex: 'action',
+  key: 'action',
+  render: (text, record, index) => (
+    <span >
+      <a onClick={() => this.editUser(index)} role="presentation" >编辑</a >
+      <span className="ant-divider" />
+      <a onClick={() => this.deleteUser(index)} role="presentation" >删除</a >
+    </span >
+  )
+}];
 
 @observer
 class PageComponent extends Component {
@@ -22,50 +56,15 @@ class PageComponent extends Component {
     this.createUser = this.createUser.bind(this);
     this.editUser = this.editUser.bind(this);
     this.searchUser = this.searchUser.bind(this);
-
-    this.columns = [{
-      title: '用户名',
-      dataIndex: 'username',
-      key: 'username',
-      render: text => <a>{text}</a >
-    }, {
-      title: '角色名',
-      dataIndex: 'rolename',
-      key: 'rolename'
-    }, {
-      title: '归属组织',
-      dataIndex: 'belongOrg',
-      key: 'belongOrg'
-    }, {
-      title: '归属用户',
-      dataIndex: 'belongUser',
-      key: 'belongUser'
-    }, {
-      title: '创建时间',
-      dataIndex: 'createTime',
-      key: 'createTime',
-      sorter: true
-    }, {
-      title: '操作',
-      dataIndex: 'action',
-      key: 'action',
-      render: (text, record, index) => (
-        <span >
-          <a onClick={() => this.editUser(index)} role="presentation" >编辑</a >
-          <span className="ant-divider" />
-          <a onClick={() => this.deleteUser(index)} role="presentation" >删除</a >
-        </span >
-      )
-    }];
   }
 
   componentDidMount() {
     this.doQuery();
   }
 
-  onSelectChange = (selectedRowKeys, selectedRows) => {
-    console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-  };
+  // onSelectChange = (selectedRowKeys, selectedRows) => {
+  //   console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+  // };
 
   title = () => '用户管理';
 
@@ -100,54 +99,43 @@ class PageComponent extends Component {
   }
 
   createUser() {
-    const that = this;
     modal.showModel({
       type: 'dialog',
       title: '新增用户',
       Dialog: UserConfig,
       ok: (value) => {
-        const params = {
-          loadingFlag: false,
-          url,
-          method: 'POST',
-          data: {
-            type: 0,
-            username: value.username,
-            rolename: value.rolename,
-            userDesc: value.userDesc
-          },
-          successFn() {
-            that.doQuery();
-          }
-        };
-        store.createUser(params);
+        this.okHandler(value, 0);
       },
       param: {}
     });
   }
 
-  editUser(index) {
+  okHandler(value, type) {
     const that = this;
+    const params = {
+      loadingFlag: false,
+      url,
+      method: 'POST',
+      data: {
+        type,
+        username: value.username,
+        rolename: value.rolename,
+        userDesc: value.userDesc
+      },
+      successFn() {
+        that.doQuery();
+      }
+    };
+    store.createUser(params);
+  }
+
+  editUser(index) {
     modal.showModel({
       type: 'dialog',
       title: '编辑用户',
       Dialog: UserConfig,
       ok: (value) => {
-        const params = {
-          loadingFlag: false,
-          url,
-          method: 'POST',
-          data: {
-            type: 1,
-            username: value.username,
-            rolename: value.rolename,
-            userDesc: value.userDesc
-          },
-          successFn() {
-            that.doQuery();
-          }
-        };
-        store.createUser(params);
+        this.okHandler(value, 1);
       },
       param: this.obserdata.tableList[index]
     });
@@ -205,7 +193,7 @@ class PageComponent extends Component {
           <div className="table" >
             <Table
               rowSelection={rowSelection}
-              columns={this.columns}
+              columns={columns}
               dataSource={dataSource}
               pagination={store.data.pagination}
               onChange={this.handleTableChange}
